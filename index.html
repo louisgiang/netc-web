@@ -235,18 +235,26 @@ p { margin: 0 0 1em; }
 
 /* ============================== Quy trình ================================ */
 
-.flow { counter-reset: step; display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; }
-.flow li { list-style: none; position: relative; padding: 0 12px 0 0; }
+.flow { counter-reset: step; display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin: 18px 0 0; padding: 0; }
+.flow li {
+  list-style: none; position: relative; text-align: center;
+  background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--blue);
+  padding: 30px 12px 16px; margin-top: 18px;
+}
 .flow li::before {
   counter-increment: step; content: counter(step);
-  width: 30px; height: 30px; background: var(--blue); color: #fff;
-  display: grid; place-items: center; font-weight: 700; font-size: 14px; margin-bottom: 10px;
-  position: relative; z-index: 1; border: 1px solid var(--blue-dark);
+  position: absolute; top: -19px; left: 50%; transform: translateX(-50%); z-index: 1;
+  width: 36px; height: 36px; border-radius: 50%; background: var(--blue); color: #fff;
+  display: grid; place-items: center; font-weight: 700; font-size: 15px;
+  border: 3px solid #fff; box-shadow: 0 0 0 1px var(--blue-line);
 }
-.flow li::after { content: ""; position: absolute; left: 30px; top: 15px; right: 0; height: 1px; background: repeating-linear-gradient(90deg, var(--blue-line) 0 5px, transparent 5px 10px); }
+.flow li::after {
+  content: "›"; position: absolute; right: -12px; top: 50%; transform: translateY(-50%);
+  color: var(--blue-mid); font-size: 20px; font-weight: 700; line-height: 1;
+}
 .flow li:last-child::after { display: none; }
-.flow li h3 { font-size: 13.5px; margin-bottom: 3px; color: var(--blue); }
-.flow li p { font-size: 12.5px; color: #555; }
+.flow li h3 { font-size: 13.5px; line-height: 1.4; margin-bottom: 8px; color: var(--blue); }
+.flow li p { font-size: 12.5px; line-height: 1.55; color: #555; margin: 0; }
 .flow li .dur { font-size: 12px; color: var(--red); font-weight: 700; }
 
 .flow-v { border-left: 1px solid var(--blue-line); margin-left: 15px; padding-left: 24px; counter-reset: vstep; }
@@ -359,50 +367,82 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
 .footer li { padding: 3px 0 3px 12px; position: relative; }
 .footer li::before { content: "»"; position: absolute; left: 0; color: var(--gold); }
 .footer .org-name { color: #fff; font-weight: 700; margin-bottom: 6px; text-transform: uppercase; }
-.footer .counter { margin-top: 10px; font-size: 12.5px; }
-.footer .counter b { background: var(--blue-dark); border: 1px solid rgba(255, 255, 255, .25); padding: 2px 8px; color: var(--gold); letter-spacing: .12em; }
+.footer .contact-lines span { display: block; margin-bottom: 4px; }
+.footer .contact-lines b { color: #fff; }
 .footer .legal { border-top: 1px solid rgba(255, 255, 255, .2); padding: 12px 0; display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; font-size: 12px; background: var(--blue-dark); }
 
 /* ============================== Trợ lý AI =============================== */
 
 .ai-launcher {
-  position: fixed; right: 16px; bottom: 16px; z-index: 80;
-  display: flex; align-items: center; gap: 8px;
-  background: linear-gradient(180deg, #14639F, var(--blue)); color: #fff;
-  border: 1px solid var(--blue-dark); border-radius: var(--r-sm);
-  padding: 10px 16px; font: inherit; font-weight: 700; font-size: 13px; cursor: pointer;
-  text-transform: uppercase; box-shadow: var(--shadow-2);
+  position: fixed; right: 20px; bottom: 20px; z-index: 80;
+  width: 62px; height: 62px; border-radius: 50%; padding: 0;
+  display: grid; place-items: center;
+  background: linear-gradient(145deg, #1A7CC4, var(--blue)); color: #fff;
+  border: 3px solid #fff; cursor: pointer; font: inherit;
+  box-shadow: 0 6px 18px rgba(6, 60, 107, .35);
+  transition: transform .15s ease;
 }
-.ai-launcher .dot { width: 8px; height: 8px; background: var(--gold); }
-.ai-launcher:hover { background: var(--blue-dark); }
+.ai-launcher:hover { transform: scale(1.06); }
+.ai-launcher .bot-ico { width: 34px; height: 34px; }
+.ai-launcher::before {
+  content: ""; position: absolute; inset: -3px; border-radius: 50%;
+  border: 2px solid var(--blue-mid); animation: ai-pulse 2.2s ease-out infinite;
+}
+.ai-launcher .badge {
+  position: absolute; top: -2px; right: -2px; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--red); color: #fff; font-size: 11px; font-weight: 700;
+  display: grid; place-items: center; border: 2px solid #fff;
+}
+.ai-launcher .label {
+  position: absolute; right: 74px; top: 50%; transform: translateY(-50%);
+  white-space: nowrap; background: #fff; color: var(--blue); font-size: 13px; font-weight: 700;
+  padding: 8px 14px; border-radius: 18px; box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+}
+.ai-launcher .label::after {
+  content: ""; position: absolute; right: -6px; top: 50%; margin-top: -6px;
+  border: 6px solid transparent; border-right: 0; border-left-color: #fff;
+}
+@keyframes ai-pulse { 0% { transform: scale(1); opacity: .8 } 100% { transform: scale(1.35); opacity: 0 } }
 
 .ai-panel {
-  position: fixed; right: 16px; bottom: 16px; z-index: 90;
-  width: min(380px, calc(100vw - 24px)); height: min(600px, calc(100vh - 32px));
-  background: #fff; border: 1px solid var(--blue-dark); box-shadow: var(--shadow-2);
+  position: fixed; right: 20px; bottom: 20px; z-index: 90;
+  width: min(370px, calc(100vw - 24px)); height: min(580px, calc(100vh - 40px));
+  background: #fff; border-radius: 16px; box-shadow: 0 12px 40px rgba(6, 60, 107, .3);
   display: none; flex-direction: column; overflow: hidden;
+  transform-origin: bottom right;
 }
-.ai-panel.open { display: flex; }
-.ai-head { background: linear-gradient(180deg, #14639F, var(--blue)); color: #fff; padding: 10px 12px; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid var(--gold); }
-.ai-head .avatar { width: 34px; height: 34px; background: var(--gold); color: var(--blue-dark); display: grid; place-items: center; font-size: 17px; }
-.ai-head .t { font-weight: 700; font-size: 13.5px; line-height: 1.3; text-transform: uppercase; }
-.ai-head .s { font-size: 11.5px; color: #CFE3F5; }
-.ai-head button { margin-left: auto; background: none; border: 0; color: #fff; font-size: 20px; cursor: pointer; line-height: 1; }
+.ai-panel.open { display: flex; animation: ai-pop .18s ease-out; }
+@keyframes ai-pop { from { transform: scale(.85); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+.ai-head { background: linear-gradient(135deg, #1A7CC4, var(--blue-dark)); color: #fff; padding: 14px 14px; display: flex; align-items: center; gap: 11px; }
+.ai-head .avatar { position: relative; width: 40px; height: 40px; border-radius: 50%; background: #fff; display: grid; place-items: center; flex: 0 0 40px; }
+.ai-head .avatar .bot-ico { width: 26px; height: 26px; }
+.ai-head .avatar::after { content: ""; position: absolute; right: 0; bottom: 1px; width: 10px; height: 10px; border-radius: 50%; background: #2ECC71; border: 2px solid #fff; }
+.ai-head .t { font-weight: 700; font-size: 15px; line-height: 1.3; }
+.ai-head .s { font-size: 12px; color: #CFE3F5; }
+.ai-head button { margin-left: auto; width: 32px; height: 32px; border-radius: 50%; background: rgba(255, 255, 255, .15); border: 0; color: #fff; font-size: 20px; cursor: pointer; line-height: 1; }
+.ai-head button:hover { background: rgba(255, 255, 255, .28); }
 
-.ai-body { flex: 1; overflow-y: auto; padding: 12px; background: var(--paper-2); }
-.msg { max-width: 88%; padding: 9px 12px; margin-bottom: 10px; font-size: 13px; line-height: 1.55; border: 1px solid var(--line); }
-.msg.bot { background: #fff; border-left: 3px solid var(--blue); }
-.msg.me { background: var(--blue-pale); border-left: 3px solid var(--red); margin-left: auto; }
+.ai-body { flex: 1; overflow-y: auto; padding: 14px 12px; background: #F4F7FB; }
+.msg-row { display: flex; align-items: flex-end; gap: 7px; margin-bottom: 10px; }
+.msg-row .mini { width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 1px solid var(--blue-line); display: grid; place-items: center; flex: 0 0 26px; }
+.msg-row .mini .bot-ico { width: 17px; height: 17px; }
+.msg { max-width: 82%; padding: 9px 13px; margin-bottom: 10px; font-size: 13px; line-height: 1.55; border-radius: 16px; }
+.msg-row .msg { margin-bottom: 0; }
+.msg.bot { background: #fff; color: var(--ink); border-bottom-left-radius: 4px; box-shadow: 0 1px 2px rgba(0, 0, 0, .08); }
+.msg.me { background: var(--blue); color: #fff; margin-left: auto; border-bottom-right-radius: 4px; }
+.msg.bot a { color: var(--blue-mid); }
 .msg ul, .msg ol { padding-left: 18px; margin: 5px 0; }
 .msg li { margin-bottom: 2px; }
 
-.chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 12px 10px; background: var(--paper-2); }
-.chip { background: #fff; border: 1px solid var(--blue-line); color: var(--blue); padding: 5px 11px; font: inherit; font-size: 12px; cursor: pointer; }
-.chip:hover { background: var(--blue); color: #fff; border-color: var(--blue-dark); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 12px 10px; background: #F4F7FB; }
+.chip { background: #fff; border: 1px solid var(--blue-mid); color: var(--blue); padding: 5px 12px; border-radius: 16px; font: inherit; font-size: 12px; cursor: pointer; }
+.chip:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
 
-.ai-input { display: flex; gap: 6px; padding: 10px; border-top: 1px solid var(--line); background: #fff; }
-.ai-input input { flex: 1; padding: 8px 10px; border: 1px solid #B9C7D6; font: inherit; font-size: 13px; }
-.ai-input button { background: linear-gradient(180deg, #1B8A4E, var(--green)); color: #fff; border: 1px solid #0D5B30; width: 38px; height: 36px; cursor: pointer; font-size: 15px; }
+.ai-input { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-top: 1px solid #E3EAF2; background: #fff; }
+.ai-input input { flex: 1; padding: 10px 14px; border: 1px solid #D5DFEA; border-radius: 22px; background: #F4F7FB; font: inherit; font-size: 13px; outline: none; }
+.ai-input input:focus { border-color: var(--blue-mid); background: #fff; }
+.ai-input button { background: var(--blue); color: #fff; border: 0; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 15px; flex: 0 0 40px; }
+.ai-input button:hover { background: var(--blue-dark); }
 .ai-note { font-size: 11.5px; color: var(--muted); text-align: center; padding: 0 10px 8px; background: #fff; }
 
 .typing span { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--muted); margin-right: 3px; animation: blink 1.2s infinite; }
@@ -464,7 +504,7 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
   .masthead .head-actions { display: none; }
   .brand-text .name { font-size: 15px; }
   .ai-launcher span.label { display: none; }
-  .ai-launcher { padding: 12px; }
+  .ai-launcher { right: 14px; bottom: 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -656,13 +696,6 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
   <div class="wrap main-grid">
     <div class="main-col">
 
-      <a class="promo" href="#tin-tuc">
-        <div class="promo-in">
-          <span class="promo-flag" aria-hidden="true">🚩</span>
-          <span data-vi="Triển khai Nghị quyết Đại hội đại biểu toàn quốc lần thứ XIV của Đảng" data-en="Implementing the Resolution of the 14th National Party Congress">Triển khai Nghị quyết Đại hội đại biểu toàn quốc lần thứ XIV của Đảng</span>
-        </div>
-      </a>
-
       <div class="news-cols">
         <section class="news-col">
           <h2 class="col-title" data-vi="Tin tức chung" data-en="General news">Tin tức chung</h2>
@@ -739,21 +772,6 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
           <a class="btn btn-blue" style="width:100%" href="#dashboard" data-vi="Tra cứu" data-en="Look up">Tra cứu</a>
         </div>
       </form>
-
-      <a class="link-select" href="#lien-he">
-        <span class="ls-title" data-vi="Liên kết website" data-en="Website links">Liên kết website</span>
-        <span class="ls-sub" data-vi="Chọn website liên kết ▾" data-en="Select a linked site ▾">Chọn website liên kết ▾</span>
-      </a>
-
-      <a class="ext-logo" href="https://xaydung.gov.vn" target="_blank" rel="noopener">
-        <span class="el-emblem" aria-hidden="true">★</span>
-        <span><b data-vi="Bộ Xây dựng" data-en="Ministry of Construction">Bộ Xây dựng</b><small>MINISTRY OF CONSTRUCTION</small></span>
-      </a>
-
-      <a class="hotline-box" href="tel:02437684702">
-        <span class="hb-ico" aria-hidden="true">📞</span>
-        <span><small data-vi="Đường dây nóng" data-en="Hotline">Đường dây nóng</small><b>024 3768 4702</b></span>
-      </a>
     </aside>
   </div>
 </section>
@@ -1476,8 +1494,11 @@ window.NETC_CONFIG = window.NETC_CONFIG || { aiEndpoint: "" };
         '<div>' +
           '<div class="org-name" data-vi="TRUNG TÂM THỬ NGHIỆM KHÍ THẢI PHƯƠNG TIỆN GTCGĐB (NETC)" data-en="NATIONAL EMISSION TESTING CENTER (NETC)">TRUNG TÂM THỬ NGHIỆM KHÍ THẢI PHƯƠNG TIỆN GTCGĐB (NETC)</div>' +
           '<p data-vi="Đơn vị trực thuộc Cục Đăng kiểm Việt Nam, thực hiện thử nghiệm khí thải và mức tiêu thụ năng lượng cho phương tiện giao thông cơ giới đường bộ." data-en="A unit of Vietnam Register, testing emissions and energy consumption of road motor vehicles.">Đơn vị trực thuộc Cục Đăng kiểm Việt Nam, thực hiện thử nghiệm khí thải và mức tiêu thụ năng lượng cho phương tiện giao thông cơ giới đường bộ.</p>' +
-          '<p>18 Phạm Hùng, Mỹ Đình 2, Nam Từ Liêm, Hà Nội<br>☎ 024 3768 4702 · netc@vr.org.vn</p>' +
-          '<div class="counter"><span data-vi="Lượt truy cập" data-en="Visitors">Lượt truy cập</span>: <b>01&nbsp;284&nbsp;503</b></div>' +
+          '<p class="contact-lines">' +
+            '<span><b data-vi="Địa chỉ:" data-en="Address:">Địa chỉ:</b> Km15+200, Quốc lộ 1A, Thôn Yên Phú, Xã Ngọc Hồi, Thành phố Hà Nội</span>' +
+            '<span><b data-vi="Điện thoại:" data-en="Phone:">Điện thoại:</b> <a href="tel:02436893108">(024).36893108</a>' +
+            '&nbsp;&nbsp;&nbsp;&nbsp;<b>Fax:</b> (024).36893555</span>' +
+          '</p>' +
         '</div>' +
         '<div><h4 data-vi="Liên kết nhanh" data-en="Quick links">Liên kết nhanh</h4><ul>' + quick + '</ul></div>' +
         '<div><h4 data-vi="Liên kết ngoài" data-en="External links">Liên kết ngoài</h4><ul>' +
@@ -1487,23 +1508,32 @@ window.NETC_CONFIG = window.NETC_CONFIG || { aiEndpoint: "" };
         '</ul></div>' +
       '</div>' +
       '<div class="legal">' +
-        '<span data-vi="© 2026 Trung tâm Thử nghiệm khí thải phương tiện GTCGĐB. Bản quyền thuộc Cục Đăng kiểm Việt Nam." data-en="© 2026 National Emission Testing Center. All rights reserved by Vietnam Register.">© 2026 Trung tâm Thử nghiệm khí thải phương tiện GTCGĐB. Bản quyền thuộc Cục Đăng kiểm Việt Nam.</span>' +
-        '<span data-vi="Chịu trách nhiệm nội dung: Giám đốc Trung tâm" data-en="Content responsibility: Director of the Center">Chịu trách nhiệm nội dung: Giám đốc Trung tâm</span>' +
+        '<span data-vi="© 2026 NETC. Mọi quyền được bảo lưu." data-en="© 2026 NETC. All rights reserved.">© 2026 NETC. Mọi quyền được bảo lưu.</span>' +
       '</div>' +
     '</div></footer>';
   }
 
   /* ---------------------------- Trợ lý AI -------------------------------- */
 
+  // biểu tượng robot dùng chung cho nút mở, header và avatar tin nhắn
+  var BOT_ICO = '<svg class="bot-ico" viewBox="0 0 32 32" aria-hidden="true">' +
+    '<path d="M16 3v4" stroke="#FFC72C" stroke-width="2.4" stroke-linecap="round"/><circle cx="16" cy="3.5" r="2.2" fill="#FFC72C"/>' +
+    '<rect x="5" y="8" width="22" height="17" rx="6" fill="#fff" stroke="#0B4E88" stroke-width="2"/>' +
+    '<rect x="8.5" y="12" width="15" height="8" rx="4" fill="#0B4E88"/>' +
+    '<circle cx="12.5" cy="16" r="1.8" fill="#6FE3FF"/><circle cx="19.5" cy="16" r="1.8" fill="#6FE3FF"/>' +
+    '<path d="M2.5 14v5M29.5 14v5" stroke="#0B4E88" stroke-width="2.4" stroke-linecap="round"/>' +
+    '<path d="M12 28h8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>';
+
   function aiHTML() {
     return '' +
-    '<button class="ai-launcher" id="aiOpen" type="button" aria-haspopup="dialog">' +
-      '<span class="dot" aria-hidden="true"></span>' +
-      '<span class="label" data-vi="Trợ lý NETC" data-en="NETC Assistant">Trợ lý NETC</span>' +
+    '<button class="ai-launcher" id="aiOpen" type="button" aria-haspopup="dialog" aria-label="Mở trợ lý NETC">' +
+      BOT_ICO +
+      '<span class="badge" aria-hidden="true">1</span>' +
+      '<span class="label" data-vi="Xin chào! Cần hỗ trợ?" data-en="Hi! Need help?">Xin chào! Cần hỗ trợ?</span>' +
     '</button>' +
     '<section class="ai-panel" id="aiPanel" role="dialog" aria-modal="false" aria-label="Trợ lý ảo NETC">' +
       '<div class="ai-head">' +
-        '<div class="avatar" aria-hidden="true">◎</div>' +
+        '<div class="avatar" aria-hidden="true">' + BOT_ICO + '</div>' +
         '<div><div class="t" data-vi="Trợ lý ảo NETC" data-en="NETC Virtual Assistant">Trợ lý ảo NETC</div>' +
         '<div class="s" data-vi="Trực tuyến · trả lời trong vài giây" data-en="Online · replies in seconds">Trực tuyến · trả lời trong vài giây</div></div>' +
         '<button type="button" id="aiClose" aria-label="Đóng">×</button>' +
@@ -1731,7 +1761,13 @@ window.NETC_CONFIG = window.NETC_CONFIG || { aiEndpoint: "" };
     var d = document.createElement("div");
     d.className = "msg " + who;
     d.innerHTML = html;
-    body.appendChild(d);
+    if (who === "bot") {
+      var row = document.createElement("div");
+      row.className = "msg-row";
+      row.innerHTML = '<span class="mini" aria-hidden="true">' + BOT_ICO + "</span>";
+      row.appendChild(d);
+      body.appendChild(row);
+    } else body.appendChild(d);
     body.scrollTop = body.scrollHeight;
     return d;
   }
@@ -1874,7 +1910,10 @@ window.NETC_CONFIG = window.NETC_CONFIG || { aiEndpoint: "" };
     open.addEventListener("click", function () {
       panel.classList.add("open");
       open.style.display = "none";
-      if (!started) { started = true; bubble(GREET[lang], "bot"); }
+      if (!started) {
+        started = true; bubble(GREET[lang], "bot");
+        var bd = open.querySelector(".badge"); if (bd) bd.remove();
+      }
       document.getElementById("aiInput").focus();
     });
     document.getElementById("aiClose").addEventListener("click", function () {
