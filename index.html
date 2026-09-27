@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <!--
   CẦN TRUNG TÂM NETC XÁC NHẬN TRƯỚC KHI ĐƯA LÊN MẠNG (hiện là dữ liệu mẫu):
-  1. Mốc lịch sử (1998, 2005, 2012, 2018, 2024) và danh sách bằng khen, giấy khen.
-  2. Sơ đồ tổ chức: tên và số lượng phòng ban.
+  1. Trang Giới thiệu lấy từ vr.org.vn; sơ đồ tổ chức dựng lại từ danh sách phòng (chưa đối chiếu ảnh sơ đồ gốc).
+  2. Nội dung trang Quy trình (các bước, thời gian, hồ sơ) là dữ liệu mẫu.
   3. Báo giá tạm tính trong trợ lý AI (biến KB "bao-gia" và mảng SERVICES).
-  4. Thời gian xử lý từng loại hình, số máy nhánh, địa chỉ, giờ làm việc.
+  4. Thời gian xử lý từng loại hình, giờ làm việc, email netc@vr.org.vn.
   5. Toàn bộ tin tức, thông báo và dữ liệu hồ sơ mẫu trên Dashboard.
   6. Hình minh họa SVG là tạm thời; thay bằng ảnh thật của Trung tâm.
   Trợ lý AI: đặt window.NETC_CONFIG.aiEndpoint để nối với máy chủ AI (xem chú thích trong script).
@@ -589,6 +589,8 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
 .news-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 22px; }
 .news-col { min-width: 0; }
 .col-title { font-size: 16px; text-transform: uppercase; color: var(--blue); border-bottom: 2px solid var(--blue-line); padding-bottom: 6px; margin-bottom: 12px; position: relative; }
+.col-title a { color: inherit; }
+.col-title a:hover { color: var(--red); text-decoration: none; }
 .col-title::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 90px; height: 2px; background: var(--red); }
 .lead-news { margin-bottom: 12px; }
 .ln-img { display: block; aspect-ratio: 16 / 9; border: 1px solid var(--line); margin-bottom: 8px; overflow: hidden; }
@@ -663,6 +665,105 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
   .news-cols { grid-template-columns: 1fr; }
 }
 
+
+/* ======================= Breadcrumb (tất cả các trang) ======================= */
+.crumb { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; font-size: 13px; color: #333; margin-bottom: 8px; }
+.crumb a { color: #333; font-weight: 500; }
+.crumb a:hover { color: var(--red); text-decoration: none; }
+.crumb .home { display: inline-flex; color: #555; }
+.crumb .home svg { width: 18px; height: 18px; }
+.crumb .sep { color: #888; font-size: 15px; line-height: 1; }
+.crumb .cur { color: var(--muted); font-weight: 400; }
+
+/* ======================= Menu thả xuống (Tin tức) ======================= */
+.nav .has-sub { position: relative; display: flex; }
+.nav .has-sub > a .caret { font-size: 9px; margin-left: 6px; opacity: .8; }
+.nav .sub {
+  display: none; position: absolute; top: 100%; left: 0; z-index: 60; min-width: 220px;
+  background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--gold);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .15);
+}
+.nav .has-sub:hover .sub, .nav .has-sub:focus-within .sub { display: block; }
+.nav .sub a {
+  display: block; color: #333; text-transform: none; font-weight: 400; font-size: 13.5px;
+  padding: 10px 16px; border-right: 0; border-bottom: 1px dotted var(--line);
+}
+.nav .sub a:last-child { border-bottom: 0; }
+.nav .sub a:hover { background: var(--blue-pale); color: var(--blue); }
+
+/* ================================ Tin tức ================================ */
+.news-sec { margin-bottom: 28px; }
+.news-sec .hb-head { margin-bottom: 14px; }
+.nlist { background: #fff; border: 1px solid var(--line); padding: 0 18px; }
+.nrow { display: grid; grid-template-columns: 210px 1fr; gap: 18px; padding: 18px 0; border-top: 1px dotted var(--line); }
+.nrow:first-child { border-top: 0; }
+.nrow .thumb { display: block; aspect-ratio: 16 / 10; overflow: hidden; border: 1px solid var(--line); }
+.nrow .thumb svg { display: block; width: 100%; height: 100%; transition: transform .25s; }
+.nrow:hover .thumb svg { transform: scale(1.04); }
+.nrow h3 { font-size: 15.5px; line-height: 1.4; margin: 0 0 6px; }
+.nrow h3 a { color: var(--blue); }
+.nrow h3 a:hover { color: var(--red); text-decoration: none; }
+.nrow .ndate { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+.nrow p { font-size: 13.5px; line-height: 1.6; color: #444; margin: 0; }
+.ndetail { background: #fff; border: 1px solid var(--line); padding: 22px 24px; }
+.ndetail .ntag { display: inline-block; background: var(--blue); color: #fff; font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 3px 9px; margin-bottom: 10px; }
+.ndetail h2 { font-size: 22px; line-height: 1.35; color: var(--blue); margin: 0 0 8px; }
+.ndetail .ndate { font-size: 12.5px; color: var(--muted); padding-bottom: 12px; border-bottom: 1px solid var(--line); margin-bottom: 16px; }
+.ndetail .nimg { aspect-ratio: 16 / 8; border: 1px solid var(--line); margin-bottom: 16px; overflow: hidden; }
+.ndetail .nimg svg { display: block; width: 100%; height: 100%; }
+.ndetail .lead { font-weight: 500; font-size: 15px; line-height: 1.65; }
+.ndetail p { line-height: 1.7; }
+.nback { display: inline-block; margin-top: 10px; font-weight: 700; font-size: 13px; color: var(--red); }
+.nrelated { margin-top: 26px; }
+.nrelated ul { list-style: none; padding: 0; margin: 0; }
+.nrelated li { border-top: 1px dotted var(--line); padding: 8px 0 8px 14px; position: relative; }
+.nrelated li::before { content: "\00BB"; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+.nrelated li small { color: var(--muted); margin-left: 6px; }
+
+/* ============================== Giới thiệu ============================== */
+.about-card { background: var(--blue-pale); border-left: 4px solid var(--blue); padding: 14px 16px; margin-bottom: 22px; line-height: 1.8; }
+.about-card .ac-name { font-weight: 700; color: var(--blue); text-transform: uppercase; margin-bottom: 4px; }
+.about p { line-height: 1.7; }
+.fact-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0 6px; }
+.fact { border: 1px solid var(--line); border-top: 3px solid var(--red); padding: 12px; text-align: center; }
+.fact b { display: block; color: var(--blue); font-size: 17px; }
+.fact span { font-size: 12.5px; color: var(--muted); }
+.duty-list { padding-left: 0 !important; counter-reset: duty; }
+.duty-list li { list-style: none; position: relative; padding: 8px 0 8px 46px; border-bottom: 1px dotted var(--line); line-height: 1.65; margin: 0 !important; }
+.duty-list li::before { counter-increment: duty; content: "2." counter(duty); position: absolute; left: 0; top: 8px; min-width: 38px; font-weight: 700; color: var(--red); }
+.about h3 { font-size: 15px; color: var(--blue); margin: 14px 0 8px; }
+.field-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.field-card { border: 1px solid var(--line); border-top: 3px solid var(--blue); padding: 14px; background: #fff; }
+.field-card h3 { margin-top: 0 !important; }
+.field-card .fc-sub { font-size: 12.5px; color: var(--muted); margin: -2px 0 6px; }
+.field-card ul { padding-left: 18px; margin: 0; }
+.field-card li { font-size: 13.5px; line-height: 1.55; }
+.doc-list li { line-height: 1.6; margin-bottom: 6px; }
+.std-table tr.grp td { background: var(--blue-pale); color: var(--blue); font-weight: 700; }
+.std-table td:first-child { white-space: nowrap; font-weight: 500; }
+.src-note { margin-top: 18px; font-size: 12.5px; color: var(--muted); }
+.leader-box .leader { padding: 10px 12px; border-bottom: 1px dotted var(--line); margin: 0 !important; }
+.leader-box .leader:last-child { border-bottom: 0; }
+.leader small { display: block; color: var(--red); font-weight: 700; text-transform: uppercase; font-size: 11px; }
+.leader b { display: block; color: var(--blue); text-transform: uppercase; font-size: 14px; }
+.leader span { font-size: 12.5px; color: #555; }
+@media (min-width: 1001px) { .sticky-side { position: sticky; top: 60px; } }
+.org-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.org-row .org-node { min-width: 0; width: 100%; height: 100%; display: grid; place-items: center; }
+@media (max-width: 720px) { .org-row { grid-template-columns: 1fr 1fr; } .org-row::before, .org-row > div::before { display: none; } }
+
+@media (max-width: 1000px) {
+  .field-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .nav .has-sub { flex-direction: column; }
+  .nav .sub { display: block; position: static; box-shadow: none; border: 0; background: transparent; min-width: 0; }
+  .nav .sub a { color: #DCE9F6; padding-left: 30px; border-bottom: 1px solid rgba(255, 255, 255, .1); }
+  .nav .sub a:hover { background: var(--blue-dark); color: #fff; }
+  .nrow { grid-template-columns: 1fr; gap: 10px; }
+  .fact-row { grid-template-columns: 1fr; }
+  .ndetail { padding: 16px; }
+}
 </style>
 </head>
 <body>
@@ -672,7 +773,7 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
 <section class="page" id="page-trang-chu">
 <section class="hero-strip">
     <div class="wrap hs-grid">
-      <a class="hs-feature" href="#tin-tuc" aria-label="Tin nổi bật">
+      <a class="hs-feature" href="#tin-tuc/tin-9" aria-label="Tin nổi bật">
         <div class="hs-img"><svg class="illus" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="800" height="400" fill="#0B4E88"/><rect y="290" width="800" height="110" fill="#083B69"/><g stroke="#2F7FC0" stroke-width="1" opacity=".5"><path d="M0 290H800"/><path d="M60 0V290M200 0V290M340 0V290M480 0V290M620 0V290M760 0V290"/></g><rect x="220" y="282" width="330" height="16" fill="#0A2F52"/><circle cx="310" cy="298" r="14" fill="#F2B705"/><circle cx="480" cy="298" r="14" fill="#F2B705"/><path d="M230 250q10-58 70-66l60-38q30-18 80-18h60q40 0 70 32l40 30q30 6 34 40v20H230z" fill="#E9F1F9"/><path d="M372 158l-44 30h96v-38h-22q-18 0-30 8zM440 150v38h82l-28-24q-14-14-34-14z" fill="#5FA3DB"/><circle cx="310" cy="262" r="30" fill="#1A1A1A"/><circle cx="310" cy="262" r="12" fill="#9AA7B4"/><circle cx="480" cy="262" r="30" fill="#1A1A1A"/><circle cx="480" cy="262" r="12" fill="#9AA7B4"/><path d="M226 262h-40q-30 0-30-30V120q0-20 20-20h40" fill="none" stroke="#F2B705" stroke-width="7" stroke-linecap="round"/><rect x="170" y="60" width="90" height="70" fill="#E9F1F9"/><rect x="180" y="70" width="70" height="30" fill="#0B4E88"/><path d="M184 94l12-10 10 6 14-14 12 8 14-8" fill="none" stroke="#6FE39A" stroke-width="2"/><circle cx="190" cy="115" r="5" fill="#C00000"/><circle cx="206" cy="115" r="5" fill="#F2B705"/><circle cx="222" cy="115" r="5" fill="#1B8A4E"/><g fill="none" stroke="#9FC6EA" stroke-width="3" opacity=".7"><path d="M600 120q30 20 0 40t0 40"/><path d="M640 110q30 20 0 40t0 40"/></g></svg>
           <span class="hs-badge" data-vi="Nổi bật" data-en="Featured">Nổi bật</span>
           <div class="hs-cap">
@@ -698,7 +799,7 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
 
       <div class="news-cols">
         <section class="news-col">
-          <h2 class="col-title" data-vi="Tin tức chung" data-en="General news">Tin tức chung</h2>
+          <h2 class="col-title"><a href="#tin-tuc/chung" data-vi="Tin tức chung" data-en="General news">Tin tức chung</a></h2>
           <article class="lead-news">
             <a class="ln-img" href="#tin-tuc/tin-3" aria-hidden="true" tabindex="-1"><svg class="illus" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="320" height="180" fill="#E6EFF8"/><rect x="92" y="22" width="136" height="140" fill="#fff" stroke="#0B4E88" stroke-width="2"/><rect x="104" y="34" width="112" height="116" fill="none" stroke="#C9D8E8"/><path d="M118 56h84M118 70h84M118 84h60" stroke="#0B4E88" stroke-width="4"/><circle cx="196" cy="122" r="20" fill="#F2B705"/><path d="M186 140l-6 20 16-8 16 8-6-20" fill="#C00000"/><path d="M188 122l6 6 12-12" fill="none" stroke="#fff" stroke-width="4"/></svg></a>
             <h3><a href="#tin-tuc/tin-3" data-vi="NETC hoàn thành đánh giá duy trì hệ thống ISO/IEC 17025:2017" data-en="NETC completes ISO/IEC 17025:2017 surveillance assessment">NETC hoàn thành đánh giá duy trì hệ thống ISO/IEC 17025:2017</a></h3>
@@ -707,12 +808,12 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
           <ul class="mini-news">
             <li><a href="#tin-tuc/tin-5" data-vi="Rút ngắn thời gian trả kết quả đối chiếu báo cáo nước ngoài còn 3 ngày" data-en="Foreign report recognition cut to 3 working days">Rút ngắn thời gian trả kết quả đối chiếu báo cáo nước ngoài còn 3 ngày</a><span class="mn-date">05/08/2026</span></li>
             <li><a href="#tin-tuc/tin-4" data-vi="Lịch nghỉ Quốc khánh 02/9 và bố trí tiếp nhận hồ sơ" data-en="National Day closure and file intake arrangements">Lịch nghỉ Quốc khánh 02/9 và bố trí tiếp nhận hồ sơ</a><span class="mn-date">25/08/2026</span></li>
-            <li><a href="#tin-tuc" data-vi="Đoàn công tác NETC làm việc với đơn vị thử nghiệm khí thải Hàn Quốc" data-en="NETC delegation works with a Korean emission testing body">Đoàn công tác NETC làm việc với đơn vị thử nghiệm khí thải Hàn Quốc</a><span class="mn-date">28/07/2026</span></li>
+            <li><a href="#tin-tuc/tin-7" data-vi="Đoàn công tác NETC làm việc với đơn vị thử nghiệm khí thải Hàn Quốc" data-en="NETC delegation works with a Korean emission testing body">Đoàn công tác NETC làm việc với đơn vị thử nghiệm khí thải Hàn Quốc</a><span class="mn-date">28/07/2026</span></li>
           </ul>
         </section>
 
         <section class="news-col">
-          <h2 class="col-title" data-vi="Tin tức chuyên ngành" data-en="Sector news">Tin tức chuyên ngành</h2>
+          <h2 class="col-title"><a href="#tin-tuc/chuyen-nganh" data-vi="Tin tức chuyên ngành" data-en="Sector news">Tin tức chuyên ngành</a></h2>
           <article class="lead-news">
             <a class="ln-img" href="#tin-tuc/tin-1" aria-hidden="true" tabindex="-1"><svg class="illus" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="320" height="180" fill="#FBEFE4"/><rect x="70" y="24" width="120" height="140" fill="#fff" stroke="#B26A00" stroke-width="2"/><path d="M84 46h92" stroke="#C00000" stroke-width="5"/><g stroke="#C9B6A0" stroke-width="2"><rect x="84" y="62" width="92" height="14" fill="none"/><rect x="84" y="84" width="92" height="14" fill="none"/><rect x="84" y="106" width="60" height="14" fill="none"/></g><rect x="84" y="134" width="44" height="16" fill="#1B8A4E"/><rect x="200" y="58" width="60" height="44" fill="#C00000"/><text x="230" y="78" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#fff">01/10</text><text x="230" y="94" text-anchor="middle" font-family="Arial" font-size="11" fill="#fff">2026</text></svg></a>
             <h3><a href="#tin-tuc/tin-1" data-vi="Công bố biểu mẫu đăng ký thử nghiệm mới áp dụng từ 01/10/2026" data-en="New test application form to apply from 1 Oct 2026">Công bố biểu mẫu đăng ký thử nghiệm mới áp dụng từ 01/10/2026</a></h3>
@@ -721,7 +822,7 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
           <ul class="mini-news">
             <li><a href="#tin-tuc/tin-2" data-vi="Thông báo bảo trì băng thử động lực học ô tô 15–18/09" data-en="Car dynamometer maintenance notice, 15–18 Sep">Thông báo bảo trì băng thử động lực học ô tô 15–18/09</a><span class="mn-date">30/08/2026</span></li>
             <li><a href="#tin-tuc/tin-6" data-vi="Nâng cấp hệ thống tiếp nhận hồ sơ trực tuyến đêm 20/7" data-en="Online intake system upgrade on 20 Jul">Nâng cấp hệ thống tiếp nhận hồ sơ trực tuyến đêm 20/7</a><span class="mn-date">18/07/2026</span></li>
-            <li><a href="#tin-tuc" data-vi="Lộ trình áp dụng mức khí thải Euro 5 đối với xe sản xuất, lắp ráp" data-en="Euro 5 roadmap for manufactured and assembled vehicles">Lộ trình áp dụng mức khí thải Euro 5 đối với xe sản xuất, lắp ráp</a><span class="mn-date">02/07/2026</span></li>
+            <li><a href="#tin-tuc/tin-8" data-vi="Lộ trình áp dụng mức khí thải Euro 5 đối với xe sản xuất, lắp ráp" data-en="Euro 5 roadmap for manufactured and assembled vehicles">Lộ trình áp dụng mức khí thải Euro 5 đối với xe sản xuất, lắp ráp</a><span class="mn-date">02/07/2026</span></li>
           </ul>
         </section>
       </div>
@@ -781,84 +882,191 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
     <div class="wrap">
       <div class="crumb"><a href="#trang-chu" data-vi="Trang chủ" data-en="Home">Trang chủ</a> / <span data-vi="Giới thiệu" data-en="About us">Giới thiệu</span></div>
       <h1 data-vi="Giới thiệu Trung tâm NETC" data-en="About NETC">Giới thiệu Trung tâm NETC</h1>
-      <p data-vi="Thông tin tổng quan về chức năng, nhiệm vụ, lịch sử hình thành, khen thưởng và tổ chức bộ máy." data-en="An overview of our mandate, history, awards and organisational structure.">Thông tin tổng quan về chức năng, nhiệm vụ, lịch sử hình thành, khen thưởng và tổ chức bộ máy.</p>
+      <p data-vi="Chức năng, nhiệm vụ, tổ chức bộ máy, lĩnh vực thử nghiệm và văn bản pháp lý của Trung tâm." data-en="The Center's functions, organisation, testing fields and legal basis.">Chức năng, nhiệm vụ, tổ chức bộ máy, lĩnh vực thử nghiệm và văn bản pháp lý của Trung tâm.</p>
     </div>
   </div>
 
   <div class="wrap layout">
-    <article class="content">
+    <article class="content about">
 
-      <h2 data-vi="Chức năng, nhiệm vụ" data-en="Function and mandate">Chức năng, nhiệm vụ</h2>
-      <p data-vi="Trung tâm Thử nghiệm khí thải phương tiện giao thông cơ giới đường bộ (NETC) là đơn vị sự nghiệp trực thuộc Cục Đăng kiểm Việt Nam, được giao thực hiện thử nghiệm khí thải và mức tiêu thụ năng lượng của phương tiện giao thông cơ giới đường bộ, phục vụ công tác quản lý nhà nước về chất lượng an toàn kỹ thuật và bảo vệ môi trường." data-en="The National Emission Testing Center for Motor Vehicles (NETC) is a public service unit of Vietnam Register, tasked with testing emissions and energy consumption of road motor vehicles in support of state management of technical safety and environmental quality.">Trung tâm Thử nghiệm khí thải phương tiện giao thông cơ giới đường bộ (NETC) là đơn vị sự nghiệp trực thuộc Cục Đăng kiểm Việt Nam, được giao thực hiện thử nghiệm khí thải và mức tiêu thụ năng lượng của phương tiện giao thông cơ giới đường bộ, phục vụ công tác quản lý nhà nước về chất lượng an toàn kỹ thuật và bảo vệ môi trường.</p>
+      <div class="about-card">
+        <div class="ac-name" data-vi="Trung tâm Thử nghiệm khí thải phương tiện GTCGĐB (NETC)" data-en="National Motor Vehicle Emission Test Center (NETC)">Trung tâm Thử nghiệm khí thải phương tiện GTCGĐB (NETC)</div>
+        <div><b data-vi="Địa chỉ:" data-en="Address:">Địa chỉ:</b> Km15+200, Quốc lộ 1A, Thôn Yên Phú, Xã Ngọc Hồi, Thành phố Hà Nội</div>
+        <div><b data-vi="Điện thoại:" data-en="Phone:">Điện thoại:</b> <a href="tel:02436893108">(024).36893108</a>&nbsp;&nbsp;&nbsp;&nbsp;<b>Fax:</b> (024).36893555</div>
+      </div>
 
-      <ul>
-        <li data-vi="Thử nghiệm khí thải mô tô, xe gắn máy, ô tô và động cơ theo quy chuẩn kỹ thuật quốc gia và các tiêu chuẩn quốc tế được thừa nhận." data-en="Test emissions of motorcycles, mopeds, cars and engines to national technical regulations and recognised international standards.">Thử nghiệm khí thải mô tô, xe gắn máy, ô tô và động cơ theo quy chuẩn kỹ thuật quốc gia và các tiêu chuẩn quốc tế được thừa nhận.</li>
-        <li data-vi="Thử nghiệm và xác định mức tiêu thụ nhiên liệu, điện năng phục vụ dán nhãn năng lượng." data-en="Measure fuel and electricity consumption for energy labelling.">Thử nghiệm và xác định mức tiêu thụ nhiên liệu, điện năng phục vụ dán nhãn năng lượng.</li>
-        <li data-vi="Xem xét, đối chiếu và công nhận báo cáo thử nghiệm do phòng thử nghiệm nước ngoài cấp." data-en="Review, cross-check and recognise test reports issued by foreign laboratories.">Xem xét, đối chiếu và công nhận báo cáo thử nghiệm do phòng thử nghiệm nước ngoài cấp.</li>
-        <li data-vi="Tham gia xây dựng tiêu chuẩn, quy chuẩn kỹ thuật về khí thải phương tiện; nghiên cứu ứng dụng nhiên liệu và công nghệ xử lý khí thải mới." data-en="Contribute to drafting standards and regulations on vehicle emissions; research new fuels and after-treatment technologies.">Tham gia xây dựng tiêu chuẩn, quy chuẩn kỹ thuật về khí thải phương tiện; nghiên cứu ứng dụng nhiên liệu và công nghệ xử lý khí thải mới.</li>
-        <li data-vi="Đào tạo, hướng dẫn nghiệp vụ thử nghiệm khí thải cho các đơn vị trong và ngoài ngành." data-en="Train and provide technical guidance on emission testing for units inside and outside the sector.">Đào tạo, hướng dẫn nghiệp vụ thử nghiệm khí thải cho các đơn vị trong và ngoài ngành.</li>
-      </ul>
+      <h2 id="gt-chung" data-vi="1. Giới thiệu chung" data-en="1. Overview">1. Giới thiệu chung</h2>
+      <p data-vi="Trung tâm thử nghiệm khí thải phương tiện giao thông cơ giới đường bộ được thành lập ngày 21/09/2009 theo Quyết định số 2737/QĐ-BGTVT của Bộ trưởng Bộ Giao thông vận tải." data-en="The National Motor Vehicle Emission Test Center was established on 21 September 2009 under Decision No. 2737/QĐ-BGTVT of the Minister of Transport.">Trung tâm thử nghiệm khí thải phương tiện giao thông cơ giới đường bộ được thành lập ngày 21/09/2009 theo Quyết định số 2737/QĐ-BGTVT của Bộ trưởng Bộ Giao thông vận tải.</p>
+      <p data-vi="Trung tâm có tên giao dịch bằng tiếng Anh là NATIONAL MOTOR VEHICLE EMISSION TEST CENTER; viết tắt là NETC." data-en="The Center's English trading name is NATIONAL MOTOR VEHICLE EMISSION TEST CENTER, abbreviated NETC.">Trung tâm có tên giao dịch bằng tiếng Anh là NATIONAL MOTOR VEHICLE EMISSION TEST CENTER; viết tắt là NETC.</p>
+      <p data-vi="Trung tâm thực hiện theo hệ thống quản lý chất lượng theo tiêu chuẩn ISO 9001:2015, ISO/IEC 17025:2017 (Số hiệu VILAS 884), các sản phẩm, dịch vụ của Trung tâm NETC đảm bảo tính trung thực, tin cậy, nhanh chóng, rõ ràng." data-en="The Center operates a quality management system to ISO 9001:2015 and ISO/IEC 17025:2017 (VILAS 884); NETC's products and services are accurate, reliable, prompt and transparent.">Trung tâm thực hiện theo hệ thống quản lý chất lượng theo tiêu chuẩn ISO 9001:2015, ISO/IEC 17025:2017 (Số hiệu VILAS 884), các sản phẩm, dịch vụ của Trung tâm NETC đảm bảo tính trung thực, tin cậy, nhanh chóng, rõ ràng.</p>
+      <div class="fact-row">
+        <div class="fact"><b>21/09/2009</b><span data-vi="Ngày thành lập" data-en="Established">Ngày thành lập</span></div>
+        <div class="fact"><b>ISO 9001:2015</b><span data-vi="Hệ thống quản lý chất lượng" data-en="Quality management">Hệ thống quản lý chất lượng</span></div>
+        <div class="fact"><b>VILAS 884</b><span>ISO/IEC 17025:2017</span></div>
+      </div>
 
-      <h2 data-vi="Lịch sử hình thành và vị trí trực thuộc" data-en="History and position">Lịch sử hình thành và vị trí trực thuộc</h2>
-      <p data-vi="Trung tâm được thành lập trong quá trình Cục Đăng kiểm Việt Nam xây dựng năng lực thử nghiệm phát thải trong nước, thay vì phụ thuộc hoàn toàn vào kết quả thử nghiệm từ nước ngoài. Qua các giai đoạn đầu tư, Trung tâm lần lượt đưa vào khai thác băng thử xe máy, băng thử ô tô và hệ thống phân tích khí thải theo chu trình hiện đại." data-en="The Center was established as Vietnam Register built domestic emission testing capacity instead of relying entirely on foreign results. Through successive investments it commissioned a motorcycle dynamometer, a car dynamometer and a modern cycle-based emission analysis system.">Trung tâm được thành lập trong quá trình Cục Đăng kiểm Việt Nam xây dựng năng lực thử nghiệm phát thải trong nước, thay vì phụ thuộc hoàn toàn vào kết quả thử nghiệm từ nước ngoài. Qua các giai đoạn đầu tư, Trung tâm lần lượt đưa vào khai thác băng thử xe máy, băng thử ô tô và hệ thống phân tích khí thải theo chu trình hiện đại.</p>
+      <h2 id="gt-nhiem-vu" data-vi="2. Chức năng, nhiệm vụ" data-en="2. Functions and duties">2. Chức năng, nhiệm vụ</h2>
+      <ol class="duty-list">
+        <li>Xây dựng, ban hành và tổ chức thực hiện kế hoạch hàng năm về công tác thử nghiệm khí thải, tiêu thụ nhiên liệu, năng lượng của phương tiện và thiết bị.</li>
+        <li>Đề xuất và tham gia xây dựng, bổ sung, sửa đổi quy chuẩn kỹ thuật quốc gia, tiêu chuẩn quốc gia và các văn bản quy phạm pháp luật có liên quan làm căn cứ cho việc thử nghiệm khí thải, tiêu thụ nhiên liệu, năng lượng của phương tiện và thiết bị để Cục trưởng trình cơ quan có thẩm quyền ban hành.</li>
+        <li>Cung cấp dịch vụ thử nghiệm khí thải, tiêu thụ nhiên liệu, năng lượng của phương tiện và thiết bị (bao gồm cả việc kiểm tra sự phù hợp của hệ thống khí thải, tiêu thụ nhiên liệu, năng lượng lắp đặt trên phương tiện); lập báo cáo thử nghiệm theo quy định.</li>
+        <li>Tham gia giám sát thử nghiệm, đánh giá điều kiện kỹ thuật của các cơ sở thử nghiệm.</li>
+        <li>Tham gia xây dựng và khai thác hệ thống quản lý cơ sở dữ liệu phương tiện và thiết bị của Cục Đăng kiểm Việt Nam. Tổ chức xây dựng và khai thác hệ thống quản lý cơ sở dữ liệu của Trung tâm.</li>
+        <li>Tổ chức thu giá thử nghiệm và giá dịch vụ theo quy định của pháp luật.</li>
+        <li>Tổ chức thực hiện công tác nghiên cứu khoa học, phát triển, ứng dụng tiến bộ khoa học và chuyển giao công nghệ liên quan đến công tác thử nghiệm phương tiện và thiết bị được giao.</li>
+        <li>Tổ chức thực hiện biên soạn tài liệu hướng dẫn nghiệp vụ, hướng dẫn nghiệp vụ, đánh giá nghiệp vụ Đăng kiểm viên thuộc lĩnh vực thử nghiệm khí thải, tiêu thụ nhiên liệu, năng lượng của phương tiện và thiết bị.</li>
+        <li>Tư vấn, hợp tác, liên doanh, liên kết với các tổ chức, cá nhân trong và ngoài nước để cung cấp các dịch vụ kỹ thuật liên quan đến thử nghiệm khí thải, tiêu thụ năng lượng của phương tiện và thiết bị theo quy định của pháp luật.</li>
+        <li>Duy trì hệ thống quản lý chất lượng theo các tiêu chuẩn có liên quan đến nhiệm vụ của đơn vị.</li>
+        <li>Thực hiện hợp tác quốc tế về thử nghiệm khí thải, tiêu thụ năng lượng của phương tiện và thiết bị theo quy định.</li>
+        <li>Quản lý hồ sơ thử nghiệm, hồ sơ cung cấp dịch vụ của đơn vị theo quy định của pháp luật.</li>
+        <li>Xây dựng và thực hiện chương trình cải cách hành chính của đơn vị theo mục tiêu và nội dung chương trình cải cách hành chính nhà nước của Cục Đăng kiểm Việt Nam.</li>
+        <li>Quản lý bộ máy, tuyển dụng viên chức, người lao động; thực hiện chế độ tiền lương và các chế độ, chính sách đãi ngộ khen thưởng, kỷ luật đối với viên chức và người lao động thuộc phạm vi quản lý của Trung tâm theo quy định của pháp luật.</li>
+        <li>Tham gia, xây dựng các chương trình, đề án, dự án liên quan đến thử nghiệm khí thải, tiêu thụ năng lượng của phương tiện và thiết bị được Cục Đăng kiểm Việt Nam giao.</li>
+        <li>Thực hiện các nhiệm vụ, quyền hạn khác do Cục trưởng Cục Đăng kiểm Việt Nam giao và theo quy định của pháp luật.</li>
+      </ol>
 
+      <h2 id="gt-to-chuc" data-vi="3. Sơ đồ tổ chức" data-en="3. Organisation chart">3. Sơ đồ tổ chức</h2>
+      <div class="org-chart">
+        <div class="org-node top" data-vi="Cục Đăng kiểm Việt Nam" data-en="Vietnam Register">Cục Đăng kiểm Việt Nam</div>
+        <div class="org-line"></div>
+        <div class="org-node lead" data-vi="Giám đốc Trung tâm" data-en="Director">Giám đốc Trung tâm</div>
+        <div class="org-line"></div>
+        <div class="org-node" data-vi="Phó Giám đốc" data-en="Deputy Director">Phó Giám đốc</div>
+        <div class="org-row">
+          <div><div class="org-node" data-vi="Phòng Tổ chức – Hành chính" data-en="Administration &amp; HR">Phòng Tổ chức – Hành chính</div></div>
+          <div><div class="org-node" data-vi="Phòng Thử nghiệm xe cơ giới" data-en="Motor Vehicle Testing">Phòng Thử nghiệm xe cơ giới</div></div>
+          <div><div class="org-node" data-vi="Phòng Thử nghiệm động cơ và thiết bị" data-en="Engine &amp; Equipment Testing">Phòng Thử nghiệm động cơ và thiết bị</div></div>
+          <div><div class="org-node" data-vi="Phòng Nghiên cứu phát triển – Thiết bị vật tư" data-en="R&amp;D – Equipment &amp; Supplies">Phòng Nghiên cứu phát triển – Thiết bị vật tư</div></div>
+        </div>
+      </div>
+
+      <h2 id="gt-linh-vuc" data-vi="4. Các lĩnh vực thử nghiệm" data-en="4. Testing fields">4. Các lĩnh vực thử nghiệm</h2>
+      <div class="field-grid">
+        <div class="field-card">
+          <h3 data-vi="4.1 Thử nghiệm khí thải" data-en="4.1 Emission testing">4.1 Thử nghiệm khí thải</h3>
+          <p class="fc-sub" data-vi="Phương tiện giao thông đường bộ theo tiêu chuẩn mức 2, 3, 4, 5" data-en="Road vehicles to emission levels 2, 3, 4 and 5">Phương tiện giao thông đường bộ theo tiêu chuẩn mức 2, 3, 4, 5</p>
+          <ul>
+            <li data-vi="Xe mô tô, xe máy 2 bánh, 3 bánh, 4 bánh" data-en="2-, 3- and 4-wheel motorcycles and mopeds">Xe mô tô, xe máy 2 bánh, 3 bánh, 4 bánh</li>
+            <li data-vi="Xe ô tô hạng nhẹ" data-en="Light-duty cars">Xe ô tô hạng nhẹ</li>
+            <li data-vi="Động cơ ô tô hạng nặng" data-en="Heavy-duty engines">Động cơ ô tô hạng nặng</li>
+          </ul>
+        </div>
+        <div class="field-card">
+          <h3 data-vi="4.2 Đo tiêu thụ nhiên liệu / năng lượng" data-en="4.2 Fuel / energy consumption">4.2 Đo tiêu thụ nhiên liệu / năng lượng</h3>
+          <ul>
+            <li data-vi="Đo mức tiêu thụ nhiên liệu bằng phương pháp cân bằng cacbon" data-en="Fuel consumption by the carbon-balance method">Đo mức tiêu thụ nhiên liệu bằng phương pháp cân bằng cacbon</li>
+            <li data-vi="Đo mức tiêu thụ nhiên liệu bằng phương pháp đo trực tiếp" data-en="Fuel consumption by direct measurement">Đo mức tiêu thụ nhiên liệu bằng phương pháp đo trực tiếp</li>
+            <li data-vi="Đo mức tiêu thụ năng lượng đối với mô tô điện, xe máy điện, ô tô điện và ô tô hybrid điện hạng nhẹ" data-en="Energy consumption of electric motorcycles, mopeds, electric cars and light-duty hybrid cars">Đo mức tiêu thụ năng lượng đối với mô tô điện, xe máy điện, ô tô điện và ô tô hybrid điện hạng nhẹ</li>
+          </ul>
+        </div>
+        <div class="field-card">
+          <h3 data-vi="4.3 Dịch vụ kỹ thuật khác" data-en="4.3 Other technical services">4.3 Dịch vụ kỹ thuật khác</h3>
+          <p data-vi="Thử nghiệm theo yêu cầu đối với các dịch vụ kỹ thuật theo quy định của Cục Đăng kiểm Việt Nam và của pháp luật." data-en="Testing on request for technical services as prescribed by Vietnam Register and the law.">Thử nghiệm theo yêu cầu đối với các dịch vụ kỹ thuật theo quy định của Cục Đăng kiểm Việt Nam và của pháp luật.</p>
+        </div>
+      </div>
+
+      <h2 id="gt-thiet-bi" data-vi="5. Trang thiết bị" data-en="5. Equipment">5. Trang thiết bị</h2>
+      <p data-vi="NETC được trang bị đầy đủ các thiết bị thử nghiệm đồng bộ được sản xuất tại Châu Âu cho phép thử nghiệm khí thải của xe cơ giới đến mức EURO 3 đối với xe mô tô, EURO 5 hoặc cao hơn đối với xe ô tô hạng nhẹ và động cơ hạng nặng theo yêu cầu của cơ quan quản lý nhà nước, phép thử loại 1, 2, 3, 4 và đo độ khói theo tiêu chuẩn Châu Âu, đã được tổ chức có uy tín nhất Châu Âu TUV (Đức) kiểm tra, đánh giá công nhận phòng thử nghiệm và hệ thống trang thiết bị đạt chuẩn." data-en="NETC is fully equipped with integrated European-made test equipment for vehicle emission testing up to EURO 3 for motorcycles and EURO 5 or higher for light-duty cars and heavy-duty engines as required by the authorities, including Type 1, 2, 3 and 4 tests and smoke opacity to European standards. The laboratory and equipment have been inspected and recognised by TÜV (Germany).">NETC được trang bị đầy đủ các thiết bị thử nghiệm đồng bộ được sản xuất tại Châu Âu cho phép thử nghiệm khí thải của xe cơ giới đến mức EURO 3 đối với xe mô tô, EURO 5 hoặc cao hơn đối với xe ô tô hạng nhẹ và động cơ hạng nặng theo yêu cầu của cơ quan quản lý nhà nước, phép thử loại 1, 2, 3, 4 và đo độ khói theo tiêu chuẩn Châu Âu, đã được tổ chức có uy tín nhất Châu Âu TUV (Đức) kiểm tra, đánh giá công nhận phòng thử nghiệm và hệ thống trang thiết bị đạt chuẩn.</p>
+
+      <h2 id="gt-nhan-luc" data-vi="6. Đội ngũ cán bộ kỹ thuật" data-en="6. Technical staff">6. Đội ngũ cán bộ kỹ thuật</h2>
+      <p data-vi="Trung tâm có đội ngũ Đăng kiểm viên, nhân viên được đào tạo chuyên sâu lĩnh vực thử nghiệm khí thải cả trong nước và nước ngoài, có thể thực hiện các nội dung thử nghiệm theo các quy trình, tiêu chuẩn, quy chuẩn kỹ thuật hiện hành cũng như triển khai các nghiên cứu phát triển tiên tiến hiện đại khác." data-en="The Center's inspectors and staff are specially trained in emission testing in Vietnam and abroad, and can carry out tests to current procedures, standards and technical regulations as well as advanced research and development.">Trung tâm có đội ngũ Đăng kiểm viên, nhân viên được đào tạo chuyên sâu lĩnh vực thử nghiệm khí thải cả trong nước và nước ngoài, có thể thực hiện các nội dung thử nghiệm theo các quy trình, tiêu chuẩn, quy chuẩn kỹ thuật hiện hành cũng như triển khai các nghiên cứu phát triển tiên tiến hiện đại khác.</p>
+
+      <h2 id="gt-ho-tro" data-vi="7. Thông tin hỗ trợ khách hàng" data-en="7. Customer support contacts">7. Thông tin hỗ trợ khách hàng</h2>
+      <h3 data-vi="7.1 Lãnh đạo Trung tâm" data-en="7.1 Center leadership">7.1 Lãnh đạo Trung tâm</h3>
       <div class="table-wrap">
         <table>
-          <thead><tr>
-            <th style="width:120px" data-vi="Mốc thời gian" data-en="Milestone">Mốc thời gian</th>
-            <th data-vi="Sự kiện" data-en="Event">Sự kiện</th>
-          </tr></thead>
+          <thead><tr><th style="width:50px">STT</th><th data-vi="Họ và tên" data-en="Name">Họ và tên</th><th data-vi="Chức vụ" data-en="Position">Chức vụ</th><th data-vi="Điện thoại" data-en="Phone">Điện thoại</th></tr></thead>
           <tbody>
-            <tr><td>1998</td><td data-vi="Thành lập bộ phận thử nghiệm khí thải trực thuộc Cục Đăng kiểm Việt Nam." data-en="An emission testing unit is set up under Vietnam Register.">Thành lập bộ phận thử nghiệm khí thải trực thuộc Cục Đăng kiểm Việt Nam.</td></tr>
-            <tr><td>2005</td><td data-vi="Đưa vào khai thác băng thử khí thải mô tô, xe gắn máy đầu tiên." data-en="First motorcycle and moped emission dynamometer commissioned.">Đưa vào khai thác băng thử khí thải mô tô, xe gắn máy đầu tiên.</td></tr>
-            <tr><td>2012</td><td data-vi="Nâng cấp thành Trung tâm Thử nghiệm khí thải phương tiện GTCGĐB, bổ sung băng thử ô tô." data-en="Upgraded to a full Center and a car dynamometer is added.">Nâng cấp thành Trung tâm Thử nghiệm khí thải phương tiện GTCGĐB, bổ sung băng thử ô tô.</td></tr>
-            <tr><td>2018</td><td data-vi="Triển khai thử nghiệm mức tiêu thụ năng lượng phục vụ dán nhãn năng lượng ô tô." data-en="Energy consumption testing launched for car energy labelling.">Triển khai thử nghiệm mức tiêu thụ năng lượng phục vụ dán nhãn năng lượng ô tô.</td></tr>
-            <tr><td>2024</td><td data-vi="Mở rộng phạm vi thử nghiệm theo lộ trình áp dụng mức khí thải Euro 5." data-en="Testing scope widened along the Euro 5 roadmap.">Mở rộng phạm vi thử nghiệm theo lộ trình áp dụng mức khí thải Euro 5.</td></tr>
+            <tr><td>1</td><td>Nguyễn Hoài Nam</td><td data-vi="Giám đốc" data-en="Director">Giám đốc</td><td>0243.689.3666</td></tr>
+            <tr><td>2</td><td>Lê Hồng Việt</td><td data-vi="Phó Giám đốc" data-en="Deputy Director">Phó Giám đốc</td><td>0834554529</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 style="margin-top:18px" data-vi="7.2 Các phòng nghiệp vụ" data-en="7.2 Departments">7.2 Các phòng nghiệp vụ</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th data-vi="Phòng nghiệp vụ" data-en="Department">Phòng nghiệp vụ</th><th data-vi="Cán bộ hướng dẫn" data-en="Contact person">Cán bộ hướng dẫn</th><th data-vi="Chức vụ" data-en="Position">Chức vụ</th><th data-vi="Điện thoại" data-en="Phone">Điện thoại</th></tr></thead>
+          <tbody>
+            <tr><td data-vi="Phòng Tổ chức – Hành chính" data-en="Administration &amp; HR">Phòng Tổ chức – Hành chính</td><td>Trần Duy Mạnh</td><td data-vi="Trưởng phòng" data-en="Head">Trưởng phòng</td><td>0984666748</td></tr>
+            <tr><td rowspan="2" data-vi="Phòng Thử nghiệm xe cơ giới" data-en="Motor Vehicle Testing">Phòng Thử nghiệm xe cơ giới</td><td>Nguyễn Văn Truyền</td><td data-vi="Trưởng phòng" data-en="Head">Trưởng phòng</td><td>0979875666</td></tr>
+            <tr><td>Nguyễn Đức Tuấn Hiệp</td><td data-vi="Phó Trưởng phòng" data-en="Deputy Head">Phó Trưởng phòng</td><td>0973841357</td></tr>
+            <tr><td data-vi="Phòng Thử nghiệm động cơ và thiết bị" data-en="Engine &amp; Equipment Testing">Phòng Thử nghiệm động cơ và thiết bị</td><td>Hoàng Văn Tập</td><td data-vi="Trưởng phòng" data-en="Head">Trưởng phòng</td><td>0983.026.366</td></tr>
+            <tr><td data-vi="Phòng Nghiên cứu phát triển – Thiết bị vật tư" data-en="R&amp;D – Equipment &amp; Supplies">Phòng Nghiên cứu phát triển – Thiết bị vật tư</td><td>Nguyễn Hải Dương</td><td data-vi="Trưởng phòng" data-en="Head">Trưởng phòng</td><td>0812858580</td></tr>
+            <tr><td data-vi="Tiếp nhận &amp; trả báo cáo thử nghiệm" data-en="Receiving &amp; returning test reports">Tiếp nhận &amp; trả báo cáo thử nghiệm</td><td>Nguyễn Đặng Thiên Hương</td><td data-vi="Nhân viên" data-en="Staff">Nhân viên</td><td>0962170052</td></tr>
+            <tr><td data-vi="Thu giá thử nghiệm / cấp phát hóa đơn" data-en="Test fees / invoices">Thu giá thử nghiệm / cấp phát hóa đơn</td><td>Nguyễn Vũ Ngọc</td><td data-vi="Nhân viên" data-en="Staff">Nhân viên</td><td>0356991668</td></tr>
           </tbody>
         </table>
       </div>
 
-      <p style="margin-top:20px" data-vi="Về tổ chức, Trung tâm chịu sự quản lý trực tiếp của Cục Đăng kiểm Việt Nam – Bộ Xây dựng; hoạt động chuyên môn tuân thủ quy chuẩn kỹ thuật quốc gia và hệ thống quản lý chất lượng phòng thử nghiệm ISO/IEC 17025." data-en="Organisationally, the Center reports directly to Vietnam Register under the Ministry of Construction; its technical work follows national technical regulations and the ISO/IEC 17025 laboratory quality system.">Về tổ chức, Trung tâm chịu sự quản lý trực tiếp của Cục Đăng kiểm Việt Nam – Bộ Xây dựng; hoạt động chuyên môn tuân thủ quy chuẩn kỹ thuật quốc gia và hệ thống quản lý chất lượng phòng thử nghiệm ISO/IEC 17025.</p>
-
-      <h2 data-vi="Bằng khen, giấy khen" data-en="Awards and commendations">Bằng khen, giấy khen</h2>
-      <div class="awards">
-        <div class="award"><div class="yr">2016</div><div data-vi="Bằng khen của Bộ trưởng Bộ Giao thông vận tải vì thành tích trong công tác thử nghiệm khí thải." data-en="Commendation from the Minister of Transport for achievements in emission testing.">Bằng khen của Bộ trưởng Bộ Giao thông vận tải vì thành tích trong công tác thử nghiệm khí thải.</div></div>
-        <div class="award"><div class="yr">2019</div><div data-vi="Giấy khen của Cục trưởng Cục Đăng kiểm Việt Nam cho tập thể lao động xuất sắc." data-en="Certificate of merit from the Director General of Vietnam Register for outstanding collective performance.">Giấy khen của Cục trưởng Cục Đăng kiểm Việt Nam cho tập thể lao động xuất sắc.</div></div>
-        <div class="award"><div class="yr">2021</div><div data-vi="Bằng khen vì đóng góp xây dựng quy chuẩn kỹ thuật quốc gia về khí thải xe cơ giới." data-en="Commendation for contributions to national technical regulations on vehicle emissions.">Bằng khen vì đóng góp xây dựng quy chuẩn kỹ thuật quốc gia về khí thải xe cơ giới.</div></div>
-        <div class="award"><div class="yr">2024</div><div data-vi="Giấy khen về thành tích ứng dụng chuyển đổi số trong quản lý hồ sơ thử nghiệm." data-en="Certificate of merit for digital transformation in managing test files.">Giấy khen về thành tích ứng dụng chuyển đổi số trong quản lý hồ sơ thử nghiệm.</div></div>
+      <h2 id="gt-van-ban" data-vi="8. Văn bản pháp lý" data-en="8. Legal documents">8. Văn bản pháp lý</h2>
+      <h3 data-vi="8.1 Luật" data-en="8.1 Laws">8.1 Luật</h3>
+      <ul class="doc-list">
+        <li>Luật Trật tự, an toàn giao thông đường bộ;</li>
+        <li>Luật Bảo vệ môi trường;</li>
+        <li>Luật Sử dụng năng lượng tiết kiệm và hiệu quả;</li>
+        <li>Luật Chất lượng sản phẩm, hàng hóa…</li>
+      </ul>
+      <h3 data-vi="8.2 Văn bản Chính phủ" data-en="8.2 Government documents">8.2 Văn bản Chính phủ</h3>
+      <ul class="doc-list">
+        <li>Nghị định quy định chi tiết một số điều và biện pháp để tổ chức, hướng dẫn thi hành Luật Sử dụng năng lượng tiết kiệm và hiệu quả.</li>
+        <li>Nghị định 116/2017/NĐ-CP ngày 17/10/2017 của Chính phủ quy định điều kiện sản xuất, lắp ráp, nhập khẩu và kinh doanh dịch vụ bảo hành, bảo dưỡng ô tô (được sửa đổi, bổ sung bởi Nghị định 17/2020/NĐ-CP ngày 05/02/2020).</li>
+        <li>Quyết định số 19/2024/QĐ-TTg ngày 15/11/2024 của Thủ tướng Chính phủ quy định lộ trình áp dụng tiêu chuẩn khí thải đối với xe cơ giới nhập khẩu và sản xuất, lắp ráp.</li>
+      </ul>
+      <h3 data-vi="8.3 Thông tư cấp Bộ" data-en="8.3 Ministerial circulars">8.3 Thông tư cấp Bộ</h3>
+      <ul class="doc-list">
+        <li>Thông tư số 54/2024/TT-BGTVT ngày 15/11/2024 quy định về trình tự, thủ tục chứng nhận chất lượng an toàn kỹ thuật và bảo vệ môi trường xe cơ giới, xe máy chuyên dùng, phụ tùng xe cơ giới trong nhập khẩu.</li>
+        <li>Thông tư số 55/2024/TT-BGTVT ngày 15/11/2024 quy định về trình tự, thủ tục chứng nhận chất lượng an toàn kỹ thuật và bảo vệ môi trường xe cơ giới, xe máy chuyên dùng, phụ tùng xe cơ giới trong sản xuất, lắp ráp.</li>
+        <li>Thông tư 48/2024/TT-BGTVT ban hành các Quy chuẩn kỹ thuật quốc gia về chất lượng an toàn kỹ thuật và bảo vệ môi trường, tiêu thụ năng lượng xe cơ giới; xe máy chuyên dùng; phụ tùng xe cơ giới; thiết bị an toàn cho trẻ em.</li>
+        <li>Thông tư số 69/2025/TT-BXD quy định dán nhãn năng lượng đối với các phương tiện sử dụng năng lượng thuộc phạm vi quản lý của Bộ Xây dựng.</li>
+        <li>Thông tư số 70/2025/TT-BXD ban hành Quy chuẩn kỹ thuật quốc gia về khí thải mức 4 đối với xe mô tô hai bánh, xe gắn máy hai bánh sản xuất, lắp ráp và nhập khẩu mới.</li>
+      </ul>
+      <h3 data-vi="8.4 Quy chuẩn, tiêu chuẩn" data-en="8.4 Technical regulations and standards">8.4 Quy chuẩn, tiêu chuẩn</h3>
+      <div class="table-wrap">
+        <table class="std-table">
+          <thead><tr><th style="width:170px" data-vi="Số hiệu" data-en="Code">Số hiệu</th><th data-vi="Tên văn bản" data-en="Title">Tên văn bản</th></tr></thead>
+          <tbody>
+            <tr class="grp"><td colspan="2" data-vi="Đối với ô tô, động cơ" data-en="Cars and engines">Đối với ô tô, động cơ</td></tr>
+            <tr><td>QCVN 86:2024/BGTVT</td><td>Quy chuẩn kỹ thuật quốc gia về khí thải mức 4 đối với xe ô tô sản xuất, lắp ráp và nhập khẩu mới</td></tr>
+            <tr><td>QCVN 109:2024/BGTVT</td><td>Quy chuẩn kỹ thuật quốc gia về khí thải mức 5 đối với xe ô tô sản xuất, lắp ráp và nhập khẩu mới</td></tr>
+            <tr><td>QCVN 09:2024/BGTVT</td><td>Quy chuẩn quốc gia về chất lượng an toàn kỹ thuật và bảo vệ môi trường đối với xe ô tô</td></tr>
+            <tr><td>TCVN 6565:2006</td><td>Phương tiện giao thông đường bộ – Khí thải nhìn thấy được (khói) từ động cơ cháy do nén – Yêu cầu và phương pháp thử trong phê duyệt kiểu</td></tr>
+            <tr><td>TCVN 9854:2013</td><td>Phương tiện giao thông đường bộ – Ô tô con – Giới hạn tiêu thụ nhiên liệu và phương pháp xác định</td></tr>
+            <tr><td>TCVN 6567:2015</td><td>Phương tiện giao thông đường bộ – Khí thải gây ô nhiễm từ động cơ cháy do nén, động cơ cháy cưỡng bức sử dụng khí dầu mỏ hóa lỏng hoặc khí thiên nhiên lắp trên ô tô – Yêu cầu và phương pháp thử trong phê duyệt kiểu</td></tr>
+            <tr><td>TCVN 6785:2015</td><td>Phương tiện giao thông đường bộ – Khí thải gây ô nhiễm từ ô tô theo nhiên liệu dùng cho động cơ – Yêu cầu và phương pháp thử trong phê duyệt kiểu</td></tr>
+            <tr><td>TCVN 7792:2015</td><td>Phương tiện giao thông đường bộ – Khí thải CO2 và tiêu thụ nhiên liệu và/hoặc tiêu thụ năng lượng điện cho ô tô con dẫn động bằng động cơ đốt trong hoặc hệ dẫn động hybrid điện, và phương pháp đo tiêu thụ năng lượng điện cho xe M1, N1 dẫn động điện – Yêu cầu và phương pháp thử trong phê duyệt kiểu</td></tr>
+            <tr class="grp"><td colspan="2" data-vi="Đối với xe mô tô, xe gắn máy" data-en="Motorcycles and mopeds">Đối với xe mô tô, xe gắn máy</td></tr>
+            <tr><td>QCVN 04:2024/BGTVT</td><td>Quy chuẩn kỹ thuật quốc gia về khí thải xe mô tô, xe gắn máy sản xuất, lắp ráp và nhập khẩu mới</td></tr>
+            <tr><td>QCVN 77:2024/BGTVT</td><td>Quy chuẩn kỹ thuật quốc gia về khí thải mức 3 đối với xe mô tô hai bánh sản xuất, lắp ráp và nhập khẩu mới</td></tr>
+            <tr><td>QCVN 29:2025/BGTVT</td><td>Quy chuẩn kỹ thuật quốc gia về khí thải mức 4 đối với xe mô tô, xe gắn máy hai bánh sản xuất, lắp ráp và nhập khẩu mới</td></tr>
+            <tr><td>TCVN 7357:2010</td><td>Phương tiện giao thông đường bộ – Khí thải gây ô nhiễm phát ra từ mô tô – Yêu cầu và phương pháp thử trong phê duyệt kiểu</td></tr>
+            <tr><td>TCVN 7358:2010</td><td>Phương tiện giao thông đường bộ – Khí thải gây ô nhiễm phát ra từ xe máy lắp động cơ cháy cưỡng bức – Yêu cầu và phương pháp thử trong phê duyệt kiểu</td></tr>
+            <tr><td>TCVN 9726:2013</td><td>Phương tiện giao thông đường bộ – Khí thải gây ô nhiễm, khí thải CO2 và tiêu thụ nhiên liệu của mô tô hai bánh lắp động cơ cháy cưỡng bức hoặc cháy do nén – Yêu cầu và phương pháp thử trong phê duyệt kiểu</td></tr>
+            <tr><td>TCVN 13062:2020</td><td>Phương tiện giao thông đường bộ – Khí thải gây ô nhiễm phát ra từ mô tô (mức 4) – Yêu cầu và phương pháp thử trong phê duyệt kiểu</td></tr>
+          </tbody>
+        </table>
       </div>
-
-      <h2 data-vi="Tổ chức bộ máy" data-en="Organisational structure">Tổ chức bộ máy</h2>
-      <div class="org-chart">
-        <div class="org-node top" data-vi="Cục Đăng kiểm Việt Nam" data-en="Vietnam Register">Cục Đăng kiểm Việt Nam</div>
-        <div class="org-line"></div>
-        <div class="org-node lead" data-vi="Giám đốc Trung tâm NETC" data-en="Director, NETC">Giám đốc Trung tâm NETC</div>
-        <div class="org-line"></div>
-        <div class="org-node" data-vi="Phó Giám đốc" data-en="Deputy Director">Phó Giám đốc</div>
-        <div class="org-row">
-          <div><div class="org-node" data-vi="Phòng Tổng hợp" data-en="General Affairs">Phòng Tổng hợp</div></div>
-          <div><div class="org-node" data-vi="Phòng Thử nghiệm xe máy" data-en="Motorcycle Lab">Phòng Thử nghiệm xe máy</div></div>
-          <div><div class="org-node" data-vi="Phòng Thử nghiệm ô tô" data-en="Car Lab">Phòng Thử nghiệm ô tô</div></div>
-          <div><div class="org-node" data-vi="Phòng Kỹ thuật – Chất lượng" data-en="Technical &amp; Quality">Phòng Kỹ thuật – Chất lượng</div></div>
-        </div>
-      </div>
+      <p class="src-note"><span data-vi="Nguồn:" data-en="Source:">Nguồn:</span> <a href="https://www.vr.org.vn/gioi-thieu/Pages/co-cau-to-chuc.aspx?ItemID=24" target="_blank" rel="noopener" data-vi="Cổng thông tin Cục Đăng kiểm Việt Nam" data-en="Vietnam Register portal">Cổng thông tin Cục Đăng kiểm Việt Nam</a></p>
 
     </article>
 
-    <aside>
+    <aside class="sticky-side">
       <div class="side-box">
         <h3 data-vi="Trong chuyên mục này" data-en="In this section">Trong chuyên mục này</h3>
         <ul>
-          <li><a href="#" data-vi="Chức năng, nhiệm vụ" data-en="Function and mandate">Chức năng, nhiệm vụ</a></li>
-          <li><a href="#" data-vi="Lịch sử hình thành" data-en="History">Lịch sử hình thành</a></li>
-          <li><a href="#" data-vi="Bằng khen, giấy khen" data-en="Awards">Bằng khen, giấy khen</a></li>
-          <li><a href="#" data-vi="Tổ chức bộ máy" data-en="Organisational structure">Tổ chức bộ máy</a></li>
+          <li><a href="#gioi-thieu/gt-chung" data-vi="Giới thiệu chung" data-en="Overview">Giới thiệu chung</a></li>
+          <li><a href="#gioi-thieu/gt-nhiem-vu" data-vi="Chức năng, nhiệm vụ" data-en="Functions and duties">Chức năng, nhiệm vụ</a></li>
+          <li><a href="#gioi-thieu/gt-to-chuc" data-vi="Sơ đồ tổ chức" data-en="Organisation chart">Sơ đồ tổ chức</a></li>
+          <li><a href="#gioi-thieu/gt-linh-vuc" data-vi="Các lĩnh vực thử nghiệm" data-en="Testing fields">Các lĩnh vực thử nghiệm</a></li>
+          <li><a href="#gioi-thieu/gt-thiet-bi" data-vi="Trang thiết bị" data-en="Equipment">Trang thiết bị</a></li>
+          <li><a href="#gioi-thieu/gt-nhan-luc" data-vi="Đội ngũ cán bộ kỹ thuật" data-en="Technical staff">Đội ngũ cán bộ kỹ thuật</a></li>
+          <li><a href="#gioi-thieu/gt-ho-tro" data-vi="Thông tin hỗ trợ khách hàng" data-en="Customer support contacts">Thông tin hỗ trợ khách hàng</a></li>
+          <li><a href="#gioi-thieu/gt-van-ban" data-vi="Văn bản pháp lý" data-en="Legal documents">Văn bản pháp lý</a></li>
         </ul>
       </div>
-      <div class="side-box dark">
-        <h3 data-vi="Cần hỗ trợ nhanh?" data-en="Need quick help?">Cần hỗ trợ nhanh?</h3>
-        <p data-vi="Trợ lý ảo trả lời về hồ sơ, báo giá và thời gian xử lý ngay trên trang." data-en="The virtual assistant answers questions about files, quotes and turnaround times.">Trợ lý ảo trả lời về hồ sơ, báo giá và thời gian xử lý ngay trên trang.</p>
-        <button class="btn btn-primary" type="button" data-ask="" data-vi="Mở trợ lý" data-en="Open the assistant">Mở trợ lý</button>
+      <div class="side-box leader-box">
+        <h3 data-vi="Lãnh đạo đơn vị" data-en="Leadership">Lãnh đạo đơn vị</h3>
+        <div class="leader"><small data-vi="Giám đốc" data-en="Director">Giám đốc</small><b>Nguyễn Hoài Nam</b><span>☎ 0243.689.3666</span></div>
+        <div class="leader"><small data-vi="Phó Giám đốc" data-en="Deputy Director">Phó Giám đốc</small><b>Lê Hồng Việt</b><span>☎ 083.455.4529</span></div>
       </div>
     </aside>
   </div>
@@ -868,93 +1076,28 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
 <div class="page-head">
     <div class="wrap">
       <div class="crumb"><a href="#trang-chu" data-vi="Trang chủ" data-en="Home">Trang chủ</a> / <span data-vi="Tin tức" data-en="News">Tin tức</span></div>
-      <h1 data-vi="Tin tức và thông báo" data-en="News and notices">Tin tức và thông báo</h1>
-      <p data-vi="Thay đổi quy trình, lịch bảo trì hệ thống, lịch nghỉ lễ và hoạt động của Trung tâm." data-en="Process changes, system maintenance, holiday schedules and Center activities.">Thay đổi quy trình, lịch bảo trì hệ thống, lịch nghỉ lễ và hoạt động của Trung tâm.</p>
+      <h1 id="newsTitle" data-vi="Tin tức" data-en="News">Tin tức</h1>
     </div>
   </div>
 
   <div class="wrap layout">
-    <div>
-      <div class="chips" style="background:transparent;padding:0 0 18px" id="filters">
-        <button class="chip" type="button" data-f="all" data-vi="Tất cả" data-en="All">Tất cả</button>
-        <button class="chip" type="button" data-f="qt" data-vi="Thay đổi quy trình" data-en="Process changes">Thay đổi quy trình</button>
-        <button class="chip" type="button" data-f="bt" data-vi="Lịch bảo trì" data-en="Maintenance">Lịch bảo trì</button>
-        <button class="chip" type="button" data-f="nl" data-vi="Nghỉ lễ" data-en="Holidays">Nghỉ lễ</button>
-        <button class="chip" type="button" data-f="hd" data-vi="Hoạt động" data-en="Activities">Hoạt động</button>
-      </div>
-
-      <div class="news-list" id="list">
-
-        <article class="news-item" id="tin-1" data-cat="qt">
-          <div class="news-date"><div class="d">08</div><div class="m" data-vi="Th9 2026" data-en="Sep 2026">Th9 2026</div></div>
-          <div>
-            <span class="tag notice" data-vi="Thay đổi quy trình" data-en="Process change">Thay đổi quy trình</span>
-            <h3 data-vi="Áp dụng biểu mẫu đăng ký thử nghiệm mới từ 01/10/2026" data-en="New test application form applies from 1 Oct 2026">Áp dụng biểu mẫu đăng ký thử nghiệm mới từ 01/10/2026</h3>
-            <p data-vi="Biểu mẫu bổ sung trường khai báo hệ thống xử lý khí thải và loại nhiên liệu sử dụng. Hồ sơ nộp từ 01/10/2026 theo mẫu cũ sẽ được đề nghị khai bổ sung trước khi tiếp nhận." data-en="The form adds fields for the after-treatment system and fuel type. Files submitted on the old form from 1 Oct 2026 will be asked for additional information before acceptance.">Biểu mẫu bổ sung trường khai báo hệ thống xử lý khí thải và loại nhiên liệu sử dụng. Hồ sơ nộp từ 01/10/2026 theo mẫu cũ sẽ được đề nghị khai bổ sung trước khi tiếp nhận.</p>
-          </div>
-        </article>
-
-        <article class="news-item" id="tin-2" data-cat="bt">
-          <div class="news-date"><div class="d">30</div><div class="m" data-vi="Th8 2026" data-en="Aug 2026">Th8 2026</div></div>
-          <div>
-            <span class="tag maint" data-vi="Lịch bảo trì" data-en="Maintenance">Lịch bảo trì</span>
-            <h3 data-vi="Bảo trì băng thử động lực học ô tô từ 15/09 đến 18/09" data-en="Car chassis dynamometer maintenance, 15–18 Sep">Bảo trì băng thử động lực học ô tô từ 15/09 đến 18/09</h3>
-            <p data-vi="Trung tâm tạm dừng tiếp nhận mẫu thử ô tô trong bốn ngày bảo trì và hiệu chuẩn thiết bị. Hồ sơ đang thử nghiệm được sắp xếp chạy bù từ ngày 19/09." data-en="Car sample intake pauses for four days of maintenance and calibration. Files already in progress are rescheduled from 19 Sep.">Trung tâm tạm dừng tiếp nhận mẫu thử ô tô trong bốn ngày bảo trì và hiệu chuẩn thiết bị. Hồ sơ đang thử nghiệm được sắp xếp chạy bù từ ngày 19/09.</p>
-          </div>
-        </article>
-
-        <article class="news-item" id="tin-3" data-cat="hd">
-          <div class="news-date"><div class="d">22</div><div class="m" data-vi="Th8 2026" data-en="Aug 2026">Th8 2026</div></div>
-          <div>
-            <span class="tag" data-vi="Hoạt động" data-en="Activity">Hoạt động</span>
-            <h3 data-vi="NETC hoàn thành đánh giá duy trì ISO/IEC 17025:2017" data-en="NETC completes ISO/IEC 17025:2017 surveillance assessment">NETC hoàn thành đánh giá duy trì ISO/IEC 17025:2017</h3>
-            <p data-vi="Đoàn đánh giá ghi nhận không có điểm không phù hợp nặng đối với các phép thử khí thải mô tô và ô tô." data-en="The assessment team recorded no major non-conformities for motorcycle and car emission tests.">Đoàn đánh giá ghi nhận không có điểm không phù hợp nặng đối với các phép thử khí thải mô tô và ô tô.</p>
-          </div>
-        </article>
-
-        <article class="news-item" id="tin-4" data-cat="nl">
-          <div class="news-date"><div class="d">25</div><div class="m" data-vi="Th8 2026" data-en="Aug 2026">Th8 2026</div></div>
-          <div>
-            <span class="tag notice" data-vi="Nghỉ lễ" data-en="Holiday">Nghỉ lễ</span>
-            <h3 data-vi="Lịch nghỉ Quốc khánh 02/9 và bố trí tiếp nhận hồ sơ" data-en="National Day closure and file intake arrangements">Lịch nghỉ Quốc khánh 02/9 và bố trí tiếp nhận hồ sơ</h3>
-            <p data-vi="Trung tâm nghỉ ngày 01/9 và 02/9. Hồ sơ nộp trực tuyến trong thời gian nghỉ được tiếp nhận vào ngày làm việc kế tiếp." data-en="The Center is closed on 1 and 2 Sep. Files submitted online during the break are received on the next working day.">Trung tâm nghỉ ngày 01/9 và 02/9. Hồ sơ nộp trực tuyến trong thời gian nghỉ được tiếp nhận vào ngày làm việc kế tiếp.</p>
-          </div>
-        </article>
-
-        <article class="news-item" id="tin-5" data-cat="qt">
-          <div class="news-date"><div class="d">05</div><div class="m" data-vi="Th8 2026" data-en="Aug 2026">Th8 2026</div></div>
-          <div>
-            <span class="tag notice" data-vi="Thay đổi quy trình" data-en="Process change">Thay đổi quy trình</span>
-            <h3 data-vi="Rút ngắn thời gian trả kết quả đối chiếu báo cáo nước ngoài còn 3 ngày" data-en="Foreign report recognition cut to 3 working days">Rút ngắn thời gian trả kết quả đối chiếu báo cáo nước ngoài còn 3 ngày</h3>
-            <p data-vi="Áp dụng với hồ sơ nộp trực tuyến, đầy đủ bản gốc báo cáo thử nghiệm và chứng chỉ công nhận phòng thử nghiệm." data-en="Applies to online files with the original test report and the laboratory's accreditation certificate.">Áp dụng với hồ sơ nộp trực tuyến, đầy đủ bản gốc báo cáo thử nghiệm và chứng chỉ công nhận phòng thử nghiệm.</p>
-          </div>
-        </article>
-
-        <article class="news-item" id="tin-6" data-cat="bt">
-          <div class="news-date"><div class="d">18</div><div class="m" data-vi="Th7 2026" data-en="Jul 2026">Th7 2026</div></div>
-          <div>
-            <span class="tag maint" data-vi="Lịch bảo trì" data-en="Maintenance">Lịch bảo trì</span>
-            <h3 data-vi="Nâng cấp hệ thống tiếp nhận hồ sơ trực tuyến đêm 20/7" data-en="Online file intake system upgrade on the night of 20 Jul">Nâng cấp hệ thống tiếp nhận hồ sơ trực tuyến đêm 20/7</h3>
-            <p data-vi="Hệ thống tạm dừng từ 22:00 ngày 20/7 đến 02:00 ngày 21/7. Trong thời gian này khách hàng nộp hồ sơ trực tiếp tại Trung tâm." data-en="The system pauses from 22:00 on 20 Jul to 02:00 on 21 Jul. Files can be submitted in person during this time.">Hệ thống tạm dừng từ 22:00 ngày 20/7 đến 02:00 ngày 21/7. Trong thời gian này khách hàng nộp hồ sơ trực tiếp tại Trung tâm.</p>
-          </div>
-        </article>
-
-      </div>
-    </div>
+    <div id="newsMain"></div>
 
     <aside>
       <div class="side-box">
-        <h3 data-vi="Thông báo nổi bật" data-en="Highlighted notices">Thông báo nổi bật</h3>
+        <h3 data-vi="Chuyên mục" data-en="Categories">Chuyên mục</h3>
         <ul>
-          <li><a href="#tin-1" data-vi="Biểu mẫu đăng ký mới từ 01/10/2026" data-en="New application form from 1 Oct 2026">Biểu mẫu đăng ký mới từ 01/10/2026</a></li>
-          <li><a href="#tin-2" data-vi="Bảo trì băng thử ô tô 15–18/09" data-en="Car dynamometer maintenance 15–18 Sep">Bảo trì băng thử ô tô 15–18/09</a></li>
-          <li><a href="#tin-4" data-vi="Lịch nghỉ Quốc khánh 02/9" data-en="National Day closure">Lịch nghỉ Quốc khánh 02/9</a></li>
+          <li><a href="#tin-tuc/chung" data-vi="Tin tức chung" data-en="General news">Tin tức chung</a></li>
+          <li><a href="#tin-tuc/chuyen-nganh" data-vi="Tin tức chuyên ngành" data-en="Sector news">Tin tức chuyên ngành</a></li>
         </ul>
       </div>
-      <div class="side-box dark">
-        <h3 data-vi="Nhận thông báo qua email" data-en="Get notices by email">Nhận thông báo qua email</h3>
-        <p data-vi="Đơn vị đã có tài khoản sẽ nhận thông báo thay đổi quy trình và lịch bảo trì ngay khi phát hành." data-en="Organisations with an account receive process changes and maintenance notices as soon as they are issued.">Đơn vị đã có tài khoản sẽ nhận thông báo thay đổi quy trình và lịch bảo trì ngay khi phát hành.</p>
-        <a class="btn btn-primary" href="#dashboard" data-vi="Tạo tài khoản" data-en="Create an account">Tạo tài khoản</a>
+      <div class="side-box">
+        <h3 data-vi="Thông báo nổi bật" data-en="Highlighted notices">Thông báo nổi bật</h3>
+        <ul>
+          <li><a href="#tin-tuc/tin-1" data-vi="Biểu mẫu đăng ký mới từ 01/10/2026" data-en="New application form from 1 Oct 2026">Biểu mẫu đăng ký mới từ 01/10/2026</a></li>
+          <li><a href="#tin-tuc/tin-2" data-vi="Bảo trì băng thử ô tô 15–18/09" data-en="Car dynamometer maintenance 15–18 Sep">Bảo trì băng thử ô tô 15–18/09</a></li>
+          <li><a href="#tin-tuc/tin-4" data-vi="Lịch nghỉ Quốc khánh 02/9" data-en="National Day closure">Lịch nghỉ Quốc khánh 02/9</a></li>
+        </ul>
       </div>
     </aside>
   </div>
@@ -1155,7 +1298,7 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
         </table>
       </div>
 
-      <p class="notice-bar" style="margin-top:22px" data-vi="Nếu trạng thái hồ sơ không thay đổi quá 3 ngày làm việc, liên hệ 024 3768 4702 (nhánh 2) hoặc netc@vr.org.vn kèm mã hồ sơ để được kiểm tra." data-en="If a file's status has not changed for more than 3 working days, call 024 3768 4702 (ext. 2) or email netc@vr.org.vn with the file code.">Nếu trạng thái hồ sơ không thay đổi quá 3 ngày làm việc, liên hệ 024 3768 4702 (nhánh 2) hoặc netc@vr.org.vn kèm mã hồ sơ để được kiểm tra.</p>
+      <p class="notice-bar" style="margin-top:22px" data-vi="Nếu trạng thái hồ sơ không thay đổi quá 3 ngày làm việc, liên hệ (024).36893108 hoặc netc@vr.org.vn kèm mã hồ sơ để được kiểm tra." data-en="If a file's status has not changed for more than 3 working days, call (024).36893108 or email netc@vr.org.vn with the file code.">Nếu trạng thái hồ sơ không thay đổi quá 3 ngày làm việc, liên hệ (024).36893108 hoặc netc@vr.org.vn kèm mã hồ sơ để được kiểm tra.</p>
     </article>
 
     <aside>
@@ -1194,14 +1337,15 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
             <h2 class="mt-0" data-vi="Thông tin liên hệ" data-en="Contact details">Thông tin liên hệ</h2>
             <ul class="contact-list">
               <li><span class="ico" aria-hidden="true">🏛</span><span><strong data-vi="Tên đơn vị" data-en="Organisation">Tên đơn vị</strong><span data-vi="Trung tâm Thử nghiệm khí thải phương tiện giao thông cơ giới đường bộ (NETC)" data-en="National Emission Testing Center for Motor Vehicles (NETC)">Trung tâm Thử nghiệm khí thải phương tiện giao thông cơ giới đường bộ (NETC)</span></span></li>
-              <li><span class="ico" aria-hidden="true">📍</span><span><strong data-vi="Địa chỉ" data-en="Address">Địa chỉ</strong>18 Phạm Hùng, Mỹ Đình 2, Nam Từ Liêm, Hà Nội</span></li>
-              <li><span class="ico" aria-hidden="true">☎</span><span><strong data-vi="Điện thoại chung" data-en="Main phone">Điện thoại chung</strong>024 3768 4702</span></li>
+              <li><span class="ico" aria-hidden="true">📍</span><span><strong data-vi="Địa chỉ" data-en="Address">Địa chỉ</strong>Km15+200, Quốc lộ 1A, Thôn Yên Phú, Xã Ngọc Hồi, Thành phố Hà Nội</span></li>
+              <li><span class="ico" aria-hidden="true">☎</span><span><strong data-vi="Điện thoại" data-en="Phone">Điện thoại</strong><a href="tel:02436893108">(024).36893108</a></span></li>
+              <li><span class="ico" aria-hidden="true">📠</span><span><strong>Fax</strong>(024).36893555</span></li>
               <li><span class="ico" aria-hidden="true">✉</span><span><strong data-vi="Email chung" data-en="General email">Email chung</strong>netc@vr.org.vn</span></li>
               <li><span class="ico" aria-hidden="true">🕗</span><span><strong data-vi="Giờ làm việc" data-en="Working hours">Giờ làm việc</strong><span data-vi="Thứ 2 – Thứ 6: 08:00–12:00 và 13:30–17:00. Nghỉ thứ 7, chủ nhật và các ngày lễ theo quy định." data-en="Mon–Fri: 08:00–12:00 and 13:30–17:00. Closed on weekends and public holidays.">Thứ 2 – Thứ 6: 08:00–12:00 và 13:30–17:00. Nghỉ thứ 7, chủ nhật và các ngày lễ theo quy định.</span></span></li>
             </ul>
           </div>
           <div class="map-frame">
-            <iframe title="Bản đồ Trung tâm NETC" loading="lazy" src="https://www.google.com/maps?q=18%20Ph%E1%BA%A1m%20H%C3%B9ng%2C%20M%E1%BB%B9%20%C4%90%C3%ACnh%202%2C%20Nam%20T%E1%BB%AB%20Li%C3%AAm%2C%20H%C3%A0%20N%E1%BB%99i&output=embed"></iframe>
+            <iframe title="Bản đồ Trung tâm NETC" loading="lazy" src="https://www.google.com/maps?q=Trung%20t%C3%A2m%20th%E1%BB%AD%20nghi%E1%BB%87m%20kh%C3%AD%20th%E1%BA%A3i%2C%20Km15%2B200%20Qu%E1%BB%91c%20l%E1%BB%99%201A%2C%20Ng%E1%BB%8Dc%20H%E1%BB%93i%2C%20H%C3%A0%20N%E1%BB%99i&amp;output=embed"></iframe>
           </div>
         </div>
 
@@ -1209,15 +1353,17 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
         <div class="table-wrap">
           <table>
             <thead><tr>
-              <th data-vi="Nội dung" data-en="Topic">Nội dung</th>
-              <th data-vi="Đầu mối" data-en="Contact point">Đầu mối</th>
-              <th data-vi="Số máy nhánh" data-en="Extension">Số máy nhánh</th>
+              <th data-vi="Nội dung / bộ phận" data-en="Topic / department">Nội dung / bộ phận</th>
+              <th data-vi="Cán bộ hướng dẫn" data-en="Contact person">Cán bộ hướng dẫn</th>
+              <th data-vi="Điện thoại" data-en="Phone">Điện thoại</th>
             </tr></thead>
             <tbody>
-              <tr><td data-vi="Tiếp nhận hồ sơ, đăng ký thử nghiệm" data-en="File intake and test registration">Tiếp nhận hồ sơ, đăng ký thử nghiệm</td><td data-vi="Phòng Tổng hợp" data-en="General Affairs">Phòng Tổng hợp</td><td>101</td></tr>
-              <tr><td data-vi="Tiến độ hồ sơ, tra cứu kết quả" data-en="File progress and results">Tiến độ hồ sơ, tra cứu kết quả</td><td data-vi="Bộ phận một cửa" data-en="Front desk">Bộ phận một cửa</td><td>102</td></tr>
-              <tr><td data-vi="Nội dung kỹ thuật, tiêu chuẩn áp dụng" data-en="Technical matters and standards">Nội dung kỹ thuật, tiêu chuẩn áp dụng</td><td data-vi="Phòng Kỹ thuật – Chất lượng" data-en="Technical &amp; Quality">Phòng Kỹ thuật – Chất lượng</td><td>201</td></tr>
-              <tr><td data-vi="Thông báo giá, thanh toán, hóa đơn" data-en="Quotations, payment and invoices">Thông báo giá, thanh toán, hóa đơn</td><td data-vi="Bộ phận Tài chính" data-en="Finance">Bộ phận Tài chính</td><td>301</td></tr>
+              <tr><td data-vi="Tiếp nhận &amp; trả báo cáo thử nghiệm" data-en="Receiving &amp; returning test reports">Tiếp nhận &amp; trả báo cáo thử nghiệm</td><td>Nguyễn Đặng Thiên Hương</td><td><a href="tel:0962170052">0962170052</a></td></tr>
+              <tr><td data-vi="Thu giá thử nghiệm / cấp phát hóa đơn" data-en="Test fees / invoices">Thu giá thử nghiệm / cấp phát hóa đơn</td><td>Nguyễn Vũ Ngọc</td><td><a href="tel:0356991668">0356991668</a></td></tr>
+              <tr><td data-vi="Phòng Tổ chức – Hành chính" data-en="Administration &amp; HR">Phòng Tổ chức – Hành chính</td><td>Trần Duy Mạnh</td><td><a href="tel:0984666748">0984666748</a></td></tr>
+              <tr><td data-vi="Phòng Thử nghiệm xe cơ giới" data-en="Motor Vehicle Testing">Phòng Thử nghiệm xe cơ giới</td><td>Nguyễn Văn Truyền</td><td><a href="tel:0979875666">0979875666</a></td></tr>
+              <tr><td data-vi="Phòng Thử nghiệm động cơ và thiết bị" data-en="Engine &amp; Equipment Testing">Phòng Thử nghiệm động cơ và thiết bị</td><td>Hoàng Văn Tập</td><td><a href="tel:0983026366">0983.026.366</a></td></tr>
+              <tr><td data-vi="Phòng Nghiên cứu phát triển – Thiết bị vật tư" data-en="R&amp;D – Equipment &amp; Supplies">Phòng Nghiên cứu phát triển – Thiết bị vật tư</td><td>Nguyễn Hải Dương</td><td><a href="tel:0812858580">0812858580</a></td></tr>
             </tbody>
           </table>
         </div>
@@ -1255,12 +1401,9 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
 
     <aside>
       <div class="side-box">
-        <h3 data-vi="Hướng dẫn đến Trung tâm" data-en="Getting here">Hướng dẫn đến Trung tâm</h3>
-        <ul>
-          <li data-vi="Xe máy và ô tô cá nhân gửi tại bãi trong khuôn viên, cổng phía đường Phạm Hùng." data-en="Motorbike and car parking is available on site, via the Pham Hung gate.">Xe máy và ô tô cá nhân gửi tại bãi trong khuôn viên, cổng phía đường Phạm Hùng.</li>
-          <li data-vi="Xe chở mẫu thử vào cổng phụ, liên hệ trước 1 ngày để bố trí chỗ hạ mẫu." data-en="Sample delivery vehicles use the side gate; call one day ahead to arrange unloading.">Xe chở mẫu thử vào cổng phụ, liên hệ trước 1 ngày để bố trí chỗ hạ mẫu.</li>
-          <li data-vi="Khách đến làm việc xuất trình giấy tờ tùy thân tại quầy lễ tân." data-en="Visitors show ID at the reception desk.">Khách đến làm việc xuất trình giấy tờ tùy thân tại quầy lễ tân.</li>
-        </ul>
+        <h3 data-vi="Chỉ đường" data-en="Directions">Chỉ đường</h3>
+        <p>Km15+200, Quốc lộ 1A, Thôn Yên Phú, Xã Ngọc Hồi, Thành phố Hà Nội</p>
+        <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&amp;query=Km15%2B200%20Qu%E1%BB%91c%20l%E1%BB%99%201A%2C%20Ng%E1%BB%8Dc%20H%E1%BB%93i%2C%20H%C3%A0%20N%E1%BB%99i" target="_blank" rel="noopener" data-vi="Mở Google Maps" data-en="Open in Google Maps">Mở Google Maps</a>
       </div>
       <div class="side-box dark">
         <h3 data-vi="Hỏi trước khi gọi" data-en="Ask before you call">Hỏi trước khi gọi</h3>
@@ -1385,7 +1528,7 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
       </div>
       <div class="side-box dark">
         <h3 data-vi="Hồ sơ chậm tiến độ?" data-en="File running late?">Hồ sơ chậm tiến độ?</h3>
-        <p data-vi="Trạng thái không đổi quá 3 ngày làm việc, gọi 024 3768 4702 nhánh 2 kèm mã hồ sơ." data-en="If the status has not changed for over 3 working days, call 024 3768 4702 ext. 2 with your file code.">Trạng thái không đổi quá 3 ngày làm việc, gọi 024 3768 4702 nhánh 2 kèm mã hồ sơ.</p>
+        <p data-vi="Trạng thái không đổi quá 3 ngày làm việc, gọi (024).36893108 kèm mã hồ sơ." data-en="If the status has not changed for over 3 working days, call (024).36893108 with your file code.">Trạng thái không đổi quá 3 ngày làm việc, gọi (024).36893108 kèm mã hồ sơ.</p>
         <button class="btn btn-primary" type="button" data-ask="" data-vi="Hỏi trợ lý" data-en="Ask the assistant">Hỏi trợ lý</button>
       </div>
     </aside>
@@ -1413,7 +1556,11 @@ window.NETC_CONFIG = window.NETC_CONFIG || { aiEndpoint: "" };
   var PAGES = [
     { id: "trang-chu",  href: "#trang-chu",  vi: "Trang chủ",   en: "Home" },
     { id: "gioi-thieu", href: "#gioi-thieu", vi: "Giới thiệu",  en: "About us" },
-    { id: "tin-tuc",    href: "#tin-tuc",    vi: "Tin tức",     en: "News" },
+    { id: "tin-tuc",    href: "#tin-tuc",    vi: "Tin tức",     en: "News",
+      sub: [
+        { href: "#tin-tuc/chung",        vi: "Tin tức chung",        en: "General news" },
+        { href: "#tin-tuc/chuyen-nganh", vi: "Tin tức chuyên ngành", en: "Sector news" }
+      ] },
     { id: "dich-vu",    href: "#dich-vu",    vi: "Dịch vụ",     en: "Services" },
     { id: "quy-trinh",  href: "#quy-trinh",  vi: "Quy trình",   en: "Process" },
     { id: "lien-he",    href: "#lien-he",    vi: "Liên hệ",     en: "Contact" }
@@ -1425,7 +1572,12 @@ window.NETC_CONFIG = window.NETC_CONFIG || { aiEndpoint: "" };
 
   function headerHTML() {
     var links = PAGES.map(function (p) {
-      return '<a href="' + p.href + '" data-page="' + p.id + '" data-vi="' + p.vi + '" data-en="' + p.en + '">' + p.vi + "</a>";
+      var a = '<a href="' + p.href + '" data-page="' + p.id + '"><span data-vi="' + p.vi + '" data-en="' + p.en + '">' + p.vi + "</span>" +
+        (p.sub ? '<span class="caret" aria-hidden="true">▼</span>' : "") + "</a>";
+      if (!p.sub) return a;
+      return '<div class="has-sub">' + a + '<div class="sub">' + p.sub.map(function (s) {
+        return '<a href="' + s.href + '" data-vi="' + s.vi + '" data-en="' + s.en + '">' + s.vi + "</a>";
+      }).join("") + "</div></div>";
     }).join("");
 
     return '' +
@@ -1433,7 +1585,7 @@ window.NETC_CONFIG = window.NETC_CONFIG || { aiEndpoint: "" };
     '<div class="utility"><div class="wrap">' +
       '<span class="today" id="nbClock"></span>' +
       '<span class="spacer"></span>' +
-      '<span class="hotline">☎ 024 3768 4702</span>' +
+      '<a class="hotline" href="tel:02436893108">☎ (024).36893108</a>' +
       '<a href="mailto:netc@vr.org.vn">netc@vr.org.vn</a>' +
       '<div class="lang-switch" role="group" aria-label="Ngôn ngữ / Language">' +
         '<button type="button" data-lang="vi" aria-pressed="true">Tiếng Việt</button>' +
@@ -1621,8 +1773,8 @@ window.NETC_CONFIG = window.NETC_CONFIG || { aiEndpoint: "" };
       id: "theo-doi",
       chip: { vi: "Theo dõi tiến độ hồ sơ", en: "Track my file" },
       keys: ["theo doi", "theo dõi", "tra cuu", "tra cứu", "trang thai", "trạng thái", "tien do ho so", "ma ho so", "ho so cua toi", "bi cham", "cham qua", "qua han", "khong thay doi", "track", "status", "where is my"],
-      vi: "Sau khi đăng nhập Dashboard, mục “Hồ sơ của tôi” hiển thị 6 trạng thái: Đã nộp → Đã tiếp nhận → Chờ thanh toán → Đang thử nghiệm → Chờ phê duyệt → Đã trả kết quả. Bạn cũng có thể tra nhanh bằng mã hồ sơ (dạng NETC-2026-xxxxx) tại trang <a href='#dashboard'>Tra cứu hồ sơ</a>. Nếu trạng thái không đổi quá 3 ngày làm việc, liên hệ 024 3768 4702 (nhánh 2) hoặc email netc@vr.org.vn kèm mã hồ sơ.",
-      en: "After signing in, “My files” shows 6 statuses: Submitted → Received → Awaiting payment → Testing → Pending approval → Results issued. You can also look up a file quickly with its code (NETC-2026-xxxxx) on the <a href='#dashboard'>Track a file</a> page. If the status has not changed for over 3 working days, call 024 3768 4702 (ext. 2) or email netc@vr.org.vn with your file code."
+      vi: "Sau khi đăng nhập Dashboard, mục “Hồ sơ của tôi” hiển thị 6 trạng thái: Đã nộp → Đã tiếp nhận → Chờ thanh toán → Đang thử nghiệm → Chờ phê duyệt → Đã trả kết quả. Bạn cũng có thể tra nhanh bằng mã hồ sơ (dạng NETC-2026-xxxxx) tại trang <a href='#dashboard'>Tra cứu hồ sơ</a>. Nếu trạng thái không đổi quá 3 ngày làm việc, liên hệ (024).36893108 hoặc email netc@vr.org.vn kèm mã hồ sơ.",
+      en: "After signing in, “My files” shows 6 statuses: Submitted → Received → Awaiting payment → Testing → Pending approval → Results issued. You can also look up a file quickly with its code (NETC-2026-xxxxx) on the <a href='#dashboard'>Track a file</a> page. If the status has not changed for over 3 working days, call (024).36893108 or email netc@vr.org.vn with your file code."
     },
     {
       id: "dich-vu",
@@ -1635,8 +1787,8 @@ window.NETC_CONFIG = window.NETC_CONFIG || { aiEndpoint: "" };
       id: "lien-he",
       chip: { vi: "Liên hệ & giờ làm việc", en: "Contact & hours" },
       keys: ["lien he", "liên hệ", "dia chi", "địa chỉ", "o dau", "ở đâu", "gio lam viec", "giờ làm việc", "contact", "address", "hours", "phone"],
-      vi: "Trung tâm NETC – 18 Phạm Hùng, Mỹ Đình 2, Nam Từ Liêm, Hà Nội.<br>Điện thoại: 024 3768 4702 · Email: netc@vr.org.vn<br>Giờ làm việc: Thứ 2 – Thứ 6, 08:00–12:00 và 13:30–17:00 (nghỉ thứ 7, chủ nhật và ngày lễ). Bản đồ và biểu mẫu liên hệ tại trang <a href='#lien-he'>Liên hệ</a>.",
-      en: "NETC – 18 Pham Hung, My Dinh 2, Nam Tu Liem, Hanoi.<br>Phone: 024 3768 4702 · Email: netc@vr.org.vn<br>Hours: Mon–Fri, 08:00–12:00 and 13:30–17:00 (closed weekends and public holidays). Map and contact form on the <a href='#lien-he'>Contact</a> page."
+      vi: "Trung tâm NETC – Km15+200, Quốc lộ 1A, Thôn Yên Phú, Xã Ngọc Hồi, Thành phố Hà Nội.<br>Điện thoại: (024).36893108 · Fax: (024).36893555 · Email: netc@vr.org.vn<br>Giờ làm việc: Thứ 2 – Thứ 6, 08:00–12:00 và 13:30–17:00 (nghỉ thứ 7, chủ nhật và ngày lễ). Bản đồ và biểu mẫu liên hệ tại trang <a href='#lien-he'>Liên hệ</a>.",
+      en: "NETC – Km15+200, National Highway 1A, Yen Phu Hamlet, Ngoc Hoi Commune, Hanoi.<br>Phone: (024).36893108 · Fax: (024).36893555 · Email: netc@vr.org.vn<br>Hours: Mon–Fri, 08:00–12:00 and 13:30–17:00 (closed weekends and public holidays). Map and contact form on the <a href='#lien-he'>Contact</a> page."
     }
   ];
 
@@ -1736,8 +1888,8 @@ window.NETC_CONFIG = window.NETC_CONFIG || { aiEndpoint: "" };
     en: "Hello! I'm the NETC virtual assistant. I can help with the testing process, required documents, indicative quotes, turnaround times and how to track your file. What do you need?"
   };
   var FALLBACK = {
-    vi: "Tôi chưa có thông tin chính xác cho câu hỏi này. Bạn có thể chọn một chủ đề bên dưới, hoặc liên hệ trực tiếp 024 3768 4702 – netc@vr.org.vn để được cán bộ Trung tâm hỗ trợ.",
-    en: "I don't have a precise answer for that yet. Pick a topic below, or contact 024 3768 4702 – netc@vr.org.vn to reach a staff member."
+    vi: "Tôi chưa có thông tin chính xác cho câu hỏi này. Bạn có thể chọn một chủ đề bên dưới, hoặc liên hệ trực tiếp (024).36893108 – netc@vr.org.vn để được cán bộ Trung tâm hỗ trợ.",
+    en: "I don't have a precise answer for that yet. Pick a topic below, or contact (024).36893108 – netc@vr.org.vn to reach a staff member."
   };
 
   function norm(s) {
@@ -1818,9 +1970,164 @@ window.NETC_CONFIG = window.NETC_CONFIG || { aiEndpoint: "" };
     return true;
   }
 
+  /* ------------------------------ Tin tức -------------------------------- */
+
+  var NEWS_CATS = {
+    "chung":        { vi: "Tin tức chung",        en: "General news" },
+    "chuyen-nganh": { vi: "Tin tức chuyên ngành", en: "Sector news" }
+  };
+
+  // ảnh minh họa tạm cho từng tin (thay bằng ảnh thật khi có)
+  var THUMBS = {
+    cert: '<rect width="320" height="200" fill="#E6EFF8"/><rect x="92" y="26" width="136" height="150" fill="#fff" stroke="#0B4E88" stroke-width="2"/><path d="M118 60h84M118 76h84M118 92h60" stroke="#0B4E88" stroke-width="4"/><circle cx="196" cy="132" r="20" fill="#F2B705"/><path d="M186 150l-6 20 16-8 16 8-6-20" fill="#C00000"/><path d="M188 132l6 6 12-12" fill="none" stroke="#fff" stroke-width="4"/>',
+    form: '<rect width="320" height="200" fill="#FBEFE4"/><rect x="70" y="30" width="120" height="146" fill="#fff" stroke="#B26A00" stroke-width="2"/><path d="M84 52h92" stroke="#C00000" stroke-width="5"/><g stroke="#C9B6A0" stroke-width="2" fill="none"><rect x="84" y="68" width="92" height="14"/><rect x="84" y="90" width="92" height="14"/><rect x="84" y="112" width="60" height="14"/></g><rect x="84" y="142" width="44" height="16" fill="#1B8A4E"/><rect x="204" y="64" width="60" height="44" fill="#C00000"/><text x="234" y="84" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="#fff">01/10</text><text x="234" y="100" text-anchor="middle" font-family="Arial" font-size="11" fill="#fff">2026</text>',
+    tool: '<rect width="320" height="200" fill="#EAF1F7"/><rect x="40" y="130" width="240" height="14" fill="#0A2F52"/><circle cx="110" cy="146" r="10" fill="#F2B705"/><circle cx="210" cy="146" r="10" fill="#F2B705"/><path d="M60 118q6-30 40-34l34-22q16-10 42-10h30q24 0 40 18l22 16q16 4 18 22v10H60z" fill="#fff" stroke="#0B4E88" stroke-width="2"/><circle cx="110" cy="120" r="16" fill="#1A1A1A"/><circle cx="220" cy="120" r="16" fill="#1A1A1A"/><circle cx="262" cy="46" r="22" fill="#F2B705"/><path d="M252 46h20M262 36v20" stroke="#fff" stroke-width="4"/>',
+    cal:  '<rect width="320" height="200" fill="#FDECEC"/><rect x="100" y="34" width="120" height="132" fill="#fff" stroke="#C00000" stroke-width="2"/><rect x="100" y="34" width="120" height="32" fill="#C00000"/><text x="160" y="56" text-anchor="middle" font-family="Arial" font-size="14" font-weight="700" fill="#fff">09 / 2026</text><text x="160" y="130" text-anchor="middle" font-family="Arial" font-size="54" font-weight="700" fill="#C00000">2</text><path d="M126 28v14M194 28v14" stroke="#0B4E88" stroke-width="5" stroke-linecap="round"/>',
+    fast: '<rect width="320" height="200" fill="#E8F5EE"/><circle cx="160" cy="100" r="58" fill="#fff" stroke="#12763F" stroke-width="4"/><path d="M160 100V60M160 100l28 18" stroke="#12763F" stroke-width="6" stroke-linecap="round"/><text x="160" y="186" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#12763F">3 ngày</text>',
+    web:  '<rect width="320" height="200" fill="#EAF1F7"/><rect x="60" y="34" width="200" height="126" rx="6" fill="#fff" stroke="#0B4E88" stroke-width="3"/><rect x="60" y="34" width="200" height="22" fill="#0B4E88"/><path d="M84 84h110M84 100h150M84 116h90" stroke="#C9D6E4" stroke-width="7"/><circle cx="226" cy="124" r="18" fill="#F2B705"/><path d="M218 124h16M226 116v16" stroke="#fff" stroke-width="3"/>',
+    meet: '<rect width="320" height="200" fill="#EEF0FA"/><rect x="50" y="118" width="220" height="16" fill="#8A6A3A"/><g fill="#0B4E88"><circle cx="100" cy="86" r="16"/><circle cx="160" cy="80" r="16"/><circle cx="220" cy="86" r="16"/><rect x="82" y="102" width="36" height="20" rx="8"/><rect x="142" y="96" width="36" height="26" rx="8"/><rect x="202" y="102" width="36" height="20" rx="8"/></g><rect x="120" y="22" width="80" height="30" fill="#C00000"/><rect x="150" y="30" width="20" height="14" fill="#fff"/>',
+    road: '<rect width="320" height="200" fill="#E6EFF8"/><path d="M0 170L120 60h80l120 110z" fill="#5B6B7A"/><path d="M160 64v20M160 100v24M160 140v28" stroke="#fff" stroke-width="5"/><rect x="220" y="28" width="70" height="40" rx="4" fill="#12763F"/><text x="255" y="54" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#fff">EURO 5</text>',
+    conf: '<rect width="320" height="200" fill="#0B4E88"/><rect x="40" y="150" width="240" height="12" fill="#0A2F52"/><path d="M80 138q6-32 40-36l32-22q16-10 42-10h30q22 0 38 18l20 16q16 4 18 24v10H80z" fill="#E9F1F9"/><circle cx="124" cy="140" r="16" fill="#1A1A1A"/><circle cx="226" cy="140" r="16" fill="#1A1A1A"/><g fill="none" stroke="#9FC6EA" stroke-width="3"><path d="M270 50q16 10 0 20t0 20"/><path d="M290 44q16 10 0 20t0 20"/></g>'
+  };
+  function thumbSVG(k) {
+    return '<svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + (THUMBS[k] || THUMBS.web) + "</svg>";
+  }
+
+  // DỮ LIỆU MẪU – thay bằng tin thật của Trung tâm
+  var NEWS = [
+    { id: "tin-9", cat: "chung", date: "15/09/2026", img: "conf",
+      vi: { t: "NETC tham dự Hội nghị tiêu chuẩn và đổi mới ô tô thế giới 2026", s: "Trao đổi kinh nghiệm, tăng cường hợp tác kỹ thuật trong lĩnh vực tiêu chuẩn và chứng nhận xe cơ giới." },
+      en: { t: "NETC attends the World Automobile Standards & Innovation Conference 2026", s: "Sharing experience and strengthening technical cooperation on vehicle standards and certification." } },
+    { id: "tin-1", cat: "chuyen-nganh", date: "08/09/2026", img: "form",
+      vi: { t: "Công bố biểu mẫu đăng ký thử nghiệm mới áp dụng từ 01/10/2026", s: "Biểu mẫu bổ sung trường khai báo hệ thống xử lý khí thải và loại nhiên liệu sử dụng. Hồ sơ nộp từ 01/10/2026 theo mẫu cũ sẽ được đề nghị khai bổ sung trước khi tiếp nhận." },
+      en: { t: "New test application form to apply from 1 Oct 2026", s: "The form adds fields for the after-treatment system and fuel type. Files submitted on the old form from 1 Oct 2026 will be asked for additional information before acceptance." } },
+    { id: "tin-2", cat: "chuyen-nganh", date: "30/08/2026", img: "tool",
+      vi: { t: "Thông báo bảo trì băng thử động lực học ô tô từ 15/09 đến 18/09", s: "Trung tâm tạm dừng tiếp nhận mẫu thử ô tô trong bốn ngày bảo trì và hiệu chuẩn thiết bị. Hồ sơ đang thử nghiệm được sắp xếp chạy bù từ ngày 19/09." },
+      en: { t: "Car chassis dynamometer maintenance, 15–18 Sep", s: "Car sample intake pauses for four days of maintenance and calibration. Files already in progress are rescheduled from 19 Sep." } },
+    { id: "tin-4", cat: "chung", date: "25/08/2026", img: "cal",
+      vi: { t: "Lịch nghỉ Quốc khánh 02/9 và bố trí tiếp nhận hồ sơ", s: "Trung tâm nghỉ ngày 01/9 và 02/9. Hồ sơ nộp trực tuyến trong thời gian nghỉ được tiếp nhận vào ngày làm việc kế tiếp." },
+      en: { t: "National Day closure and file intake arrangements", s: "The Center is closed on 1 and 2 Sep. Files submitted online during the break are received on the next working day." } },
+    { id: "tin-3", cat: "chung", date: "22/08/2026", img: "cert",
+      vi: { t: "NETC hoàn thành đánh giá duy trì hệ thống ISO/IEC 17025:2017", s: "Đoàn đánh giá ghi nhận không có điểm không phù hợp nặng đối với các phép thử khí thải mô tô và ô tô." },
+      en: { t: "NETC completes ISO/IEC 17025:2017 surveillance assessment", s: "The assessment team recorded no major non-conformities for motorcycle and car emission tests." } },
+    { id: "tin-5", cat: "chung", date: "05/08/2026", img: "fast",
+      vi: { t: "Rút ngắn thời gian trả kết quả đối chiếu báo cáo nước ngoài còn 3 ngày", s: "Áp dụng với hồ sơ nộp trực tuyến, đầy đủ bản gốc báo cáo thử nghiệm và chứng chỉ công nhận phòng thử nghiệm." },
+      en: { t: "Foreign report recognition cut to 3 working days", s: "Applies to online files with the original test report and the laboratory's accreditation certificate." } },
+    { id: "tin-7", cat: "chung", date: "28/07/2026", img: "meet",
+      vi: { t: "Đoàn công tác NETC làm việc với đơn vị thử nghiệm khí thải Hàn Quốc", s: "Hai bên trao đổi về phương pháp thử và hợp tác kỹ thuật trong lĩnh vực thử nghiệm khí thải." },
+      en: { t: "NETC delegation works with a Korean emission testing body", s: "The two sides discussed test methods and technical cooperation in emission testing." } },
+    { id: "tin-6", cat: "chuyen-nganh", date: "18/07/2026", img: "web",
+      vi: { t: "Nâng cấp hệ thống tiếp nhận hồ sơ trực tuyến đêm 20/7", s: "Hệ thống tạm dừng từ 22:00 ngày 20/7 đến 02:00 ngày 21/7. Trong thời gian này khách hàng nộp hồ sơ trực tiếp tại Trung tâm." },
+      en: { t: "Online file intake system upgrade on the night of 20 Jul", s: "The system pauses from 22:00 on 20 Jul to 02:00 on 21 Jul. Files can be submitted in person during this time." } },
+    { id: "tin-8", cat: "chuyen-nganh", date: "02/07/2026", img: "road",
+      vi: { t: "Lộ trình áp dụng mức khí thải Euro 5 đối với xe sản xuất, lắp ráp", s: "Tổng hợp lộ trình áp dụng tiêu chuẩn khí thải theo Quyết định số 19/2024/QĐ-TTg của Thủ tướng Chính phủ." },
+      en: { t: "Euro 5 roadmap for manufactured and assembled vehicles", s: "A summary of the emission standard roadmap under Prime Minister's Decision No. 19/2024/QĐ-TTg." } }
+  ];
+
+  function attrs(o, k) {
+    return 'data-vi="' + escapeHTML(o.vi[k]) + '" data-en="' + escapeHTML(o.en[k]) + '"';
+  }
+
+  function newsRow(n) {
+    var href = "#tin-tuc/" + n.id;
+    return '<article class="nrow">' +
+      '<a class="thumb" href="' + href + '" tabindex="-1" aria-hidden="true">' + thumbSVG(n.img) + "</a>" +
+      "<div><h3><a href=\"" + href + '" ' + attrs(n, "t") + ">" + escapeHTML(n.vi.t) + "</a></h3>" +
+      '<div class="ndate">📅 ' + n.date + "</div>" +
+      "<p " + attrs(n, "s") + ">" + escapeHTML(n.vi.s) + "</p></div></article>";
+  }
+
+  function newsSection(cat, limit) {
+    var items = NEWS.filter(function (n) { return n.cat === cat; });
+    if (limit) items = items.slice(0, limit);
+    var c = NEWS_CATS[cat];
+    // trang chuyên mục đã có tiêu đề ở đầu trang nên không lặp lại
+    return '<section class="news-sec">' + (limit ? '<div class="hb-head">' +
+      '<h2 class="col-title" data-vi="' + c.vi + '" data-en="' + c.en + '">' + c.vi + "</h2>" +
+      '<a href="#tin-tuc/' + cat + '" data-vi="Xem tất cả »" data-en="See all »">Xem tất cả »</a></div>' : "") +
+      '<div class="nlist">' + items.map(newsRow).join("") + "</div></section>";
+  }
+
+  // trả về các nấc breadcrumb phía sau "Tin tức"
+  function renderNews(sub) {
+    var main = document.getElementById("newsMain");
+    var h1 = document.getElementById("newsTitle");
+    if (!main) return [];
+    var set = function (vi, en) { h1.setAttribute("data-vi", vi); h1.setAttribute("data-en", en); h1.textContent = lang === "en" ? en : vi; };
+    var art = NEWS.filter(function (n) { return n.id === sub; })[0];
+
+    if (art) {
+      var c = NEWS_CATS[art.cat];
+      set(c.vi, c.en);
+      var rel = NEWS.filter(function (n) { return n.cat === art.cat && n.id !== art.id; }).slice(0, 5);
+      main.innerHTML = '<article class="ndetail">' +
+        '<span class="ntag" data-vi="' + c.vi + '" data-en="' + c.en + '">' + c.vi + "</span>" +
+        "<h2 " + attrs(art, "t") + ">" + escapeHTML(art.vi.t) + "</h2>" +
+        '<div class="ndate">📅 ' + art.date + "</div>" +
+        '<div class="nimg">' + thumbSVG(art.img) + "</div>" +
+        '<p class="lead" ' + attrs(art, "s") + ">" + escapeHTML(art.vi.s) + "</p>" +
+        '<a class="nback" href="#tin-tuc/' + art.cat + '" data-vi="« Quay lại ' + c.vi.toLowerCase() + '" data-en="« Back to ' + c.en.toLowerCase() + '">« Quay lại ' + c.vi.toLowerCase() + "</a>" +
+        '<div class="nrelated"><h3 class="col-title" data-vi="Tin khác cùng chuyên mục" data-en="More in this category">Tin khác cùng chuyên mục</h3><ul>' +
+        rel.map(function (n) { return '<li><a href="#tin-tuc/' + n.id + '" ' + attrs(n, "t") + ">" + escapeHTML(n.vi.t) + "</a><small>(" + n.date + ")</small></li>"; }).join("") +
+        "</ul></div></article>";
+      return [{ href: "#tin-tuc/" + art.cat, vi: c.vi, en: c.en }, { vi: art.vi.t, en: art.en.t }];
+    }
+    if (NEWS_CATS[sub]) {
+      set(NEWS_CATS[sub].vi, NEWS_CATS[sub].en);
+      main.innerHTML = newsSection(sub);
+      return [{ vi: NEWS_CATS[sub].vi, en: NEWS_CATS[sub].en }];
+    }
+    set("Tin tức", "News");
+    main.innerHTML = newsSection("chung", 4) + newsSection("chuyen-nganh", 4);
+    return [];
+  }
+
+  /* ----------------------------- Breadcrumb ------------------------------ */
+
+  var HOME_ICO = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3 2 11.5h3V21h5.5v-6h3v6H19v-9.5h3z"/></svg>';
+
+  // dựng lại breadcrumb: Trang chủ › Trang › (các nấc con)
+  function setCrumb(id, trail) {
+    var sec = document.getElementById("page-" + id);
+    var box = sec && sec.querySelector(".crumb");
+    if (!box) return;
+    if (!box.hasAttribute("data-label-vi")) {
+      var sp = box.querySelector("span[data-vi]");
+      box.setAttribute("data-label-vi", sp ? sp.getAttribute("data-vi") : "");
+      box.setAttribute("data-label-en", sp ? sp.getAttribute("data-en") : "");
+      box.setAttribute("aria-label", "Breadcrumb");
+    }
+    var steps = [{ href: "#" + id, vi: box.getAttribute("data-label-vi"), en: box.getAttribute("data-label-en") }].concat(trail || []);
+    var sep = '<span class="sep" aria-hidden="true">›</span>';
+    box.innerHTML = '<a class="home" href="#trang-chu" aria-label="Trang chủ">' + HOME_ICO + "</a>" +
+      steps.map(function (s, i) {
+        var last = i === steps.length - 1;
+        var t = 'data-vi="' + escapeHTML(s.vi) + '" data-en="' + escapeHTML(s.en || s.vi) + '">' + escapeHTML(lang === "en" ? (s.en || s.vi) : s.vi);
+        return sep + (last ? '<span class="cur" ' + t + "</span>" : '<a href="' + s.href + '" ' + t + "</a>");
+      }).join("");
+  }
+
+  // nấc con cho các trang có mục neo (Dịch vụ, Giới thiệu, …): lấy tiêu đề của mục
+  function anchorStep(anchor) {
+    var el = anchor && document.getElementById(anchor);
+    if (!el) return [];
+    var h = /^H[1-4]$/.test(el.tagName) ? el : el.querySelector("h1,h2,h3");
+    if (!h) return [];
+    var vi = h.getAttribute("data-vi") || h.textContent.trim();
+    return [{ vi: vi.replace(/^\d+(\.\d+)*\.?\s*/, ""), en: (h.getAttribute("data-en") || vi).replace(/^\d+(\.\d+)*\.?\s*/, "") }];
+  }
+
   function route() {
     var parts = location.hash.replace(/^#/, "").split("/");
-    showPage(parts[0] || "trang-chu", parts[1]);
+    var id = parts[0] || "trang-chu";
+    if (id === "tin-tuc") {
+      var trail = renderNews(parts[1]);
+      showPage(id);
+      setCrumb(id, trail);
+      applyLang(lang);
+    } else if (showPage(id, parts[1])) {
+      setCrumb(id, anchorStep(parts[1]));
+    }
     var lk = document.getElementById("navlinks");
     if (lk) lk.classList.remove("open");
   }
