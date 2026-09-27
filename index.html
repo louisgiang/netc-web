@@ -764,6 +764,82 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
   .fact-row { grid-template-columns: 1fr; }
   .ndetail { padding: 16px; }
 }
+
+/* ============ Điện thoại: header gọn + menu trượt (desktop không đổi) ============ */
+.m-burger, .m-top, .m-overlay { display: none; }
+.m-head { display: contents; }
+
+@media (max-width: 720px) {
+  .utility { display: none; }
+
+  .site-top { display: contents; }  /* để header dính được theo body */
+  .masthead { position: sticky; top: 0; z-index: 70; padding: 10px 0; }
+  .masthead .wrap { flex-wrap: nowrap; min-height: 0; gap: 10px; }
+  .masthead .head-tools { display: none; }
+  .brand-text { flex: 1 1 auto; min-width: 0; }
+  .brand-text .l1 { font-size: min(14px, 3.4vw); line-height: 1.3; white-space: nowrap; }
+  .brand-text .l2 { font-size: min(10.5px, 2.45vw); white-space: nowrap; }
+  .masthead .logo-netc { font-size: 19px; padding: 6px 8px; }
+  .m-burger {
+    display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 40px; margin-left: auto;
+    background: none; border: 0; color: #fff; font-size: 26px; line-height: 1; cursor: pointer;
+  }
+
+  /* menu trượt từ phải */
+  .nav {
+    position: fixed; top: 0; right: 0; bottom: 0; z-index: 95;
+    width: min(82vw, 330px); overflow-y: auto; border-bottom: 0;
+    background: var(--blue); box-shadow: -6px 0 24px rgba(0, 0, 0, .3);
+    transform: translateX(100%); transition: transform .25s ease; visibility: hidden;
+  }
+  body.m-open .nav { transform: none; visibility: visible; }
+  body.m-open { overflow: hidden; }
+  .nav .wrap { width: auto; min-height: 100%; display: flex; flex-direction: column; flex-wrap: nowrap; padding: 16px 12px 20px; }
+  .m-top { display: block; margin-bottom: 14px; }
+  .m-top .lang-switch { display: flex; width: max-content; margin: 0 0 14px auto; }
+  .m-top .lang-switch button { font-size: 12px; padding: 6px 12px; }
+  .m-top .head-search input { flex: 1; width: auto; padding: 10px 12px; font-size: 14px; }
+  .m-top .head-search button { width: 44px; }
+  .m-head { display: flex; align-items: center; background: rgba(255, 255, 255, .06); padding: 0 4px 0 8px; }
+  .m-head .brand-mini { flex: 1; }
+  .m-head .nav-toggle { display: block; margin-left: 0; }
+  .nav .links, .nav .links.open { display: flex; flex: 1 1 auto; flex-direction: column; width: 100%; padding-bottom: 0; }
+  .nav .links > a, .nav .has-sub > a { padding: 12px 12px; }
+  .nav .nav-cta { margin: auto 0 0; padding: 10px 12px; }
+  .nav .links .nav-cta { margin-top: auto; }
+  .m-overlay {
+    display: block; position: fixed; inset: 0; z-index: 90; background: rgba(0, 20, 40, .5);
+    opacity: 0; pointer-events: none; transition: opacity .25s ease;
+  }
+  body.m-open .m-overlay { opacity: 1; pointer-events: auto; }
+
+  /* trang chủ */
+  .hero-strip { padding: 12px 0; }
+  .hs-grid { gap: 10px; }
+  .hs-cap h2 { font-size: 15px; }
+  .hs-side {
+    display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; padding-bottom: 4px; scrollbar-width: none;
+  }
+  .hs-side::-webkit-scrollbar { display: none; }
+  .hs-side .portal-btn { flex: 0 0 68%; min-height: 64px; scroll-snap-align: start; font-size: 12.5px; }
+  #page-trang-chu .side-col { display: none; }
+  .main-grid { padding: 16px 0 24px; }
+  .home-block .svc-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .home-block .svc { padding: 12px 10px; }
+  .home-block .svc .ico { width: 32px; height: 32px; font-size: 15px; margin-bottom: 8px; }
+  .home-block .svc h3 { font-size: 13px; }
+  .home-block .svc p { font-size: 12px; line-height: 1.5; }
+  .flow { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .flow li { padding: 26px 8px 12px; }
+  .flow li::after { display: none; }
+  .flow li h3 { font-size: 12.5px; }
+  .flow li p { font-size: 12px; }
+
+  /* footer: khối giới thiệu cả hàng, 2 cột liên kết bên dưới */
+  .footer .cols { grid-template-columns: 1fr 1fr; gap: 20px 16px; }
+  .footer .cols > div:first-child { grid-column: 1 / -1; }
+}
 </style>
 </head>
 <body>
@@ -1622,15 +1698,31 @@ window.NETC_CONFIG = window.NETC_CONFIG || { aiEndpoint: "" };
           '<button type="submit" aria-label="Tìm">🔍</button>' +
         '</form>' +
       '</div>' +
+      /* nút mở menu trượt — chỉ hiện trên điện thoại */
+      '<button class="m-burger" id="mBurger" type="button" aria-controls="mainNav" aria-expanded="false" aria-label="Mở menu">☰</button>' +
     '</div></header>' +
 
-    '<nav class="nav" aria-label="Điều hướng chính"><div class="wrap">' +
-      '<span class="brand-mini" data-vi="Danh mục" data-en="Menu">Danh mục</span>' +
-      '<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navlinks" aria-label="Mở danh mục">☰</button>' +
+    '<nav class="nav" id="mainNav" aria-label="Điều hướng chính"><div class="wrap">' +
+      /* ngôn ngữ + tìm kiếm trong menu trượt — chỉ hiện trên điện thoại */
+      '<div class="m-top">' +
+        '<div class="lang-switch" role="group" aria-label="Ngôn ngữ / Language">' +
+          '<button type="button" data-lang="vi" aria-pressed="true">Tiếng Việt</button>' +
+          '<button type="button" data-lang="en" aria-pressed="false">English</button>' +
+        '</div>' +
+        '<form class="head-search" role="search">' +
+          '<input type="search" name="q" data-attr="placeholder" data-vi="Tìm kiếm…" data-en="Search…" placeholder="Tìm kiếm…" aria-label="Tìm kiếm">' +
+          '<button type="submit" aria-label="Tìm">🔍</button>' +
+        '</form>' +
+      '</div>' +
+      '<div class="m-head">' +
+        '<span class="brand-mini" data-vi="Danh mục" data-en="Menu">Danh mục</span>' +
+        '<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navlinks" aria-label="Đóng menu">☰</button>' +
+      '</div>' +
       '<div class="links" id="navlinks" style="display:flex">' + links +
         '<a class="nav-cta" href="#dashboard" data-vi="👤 Đăng ký / Đăng nhập" data-en="👤 Sign up / Log in">👤 Đăng ký / Đăng nhập</a>' +
       '</div>' +
-    '</div></nav>';
+    '</div></nav>' +
+    '<div class="m-overlay" id="mOverlay"></div>';
   }
 
   /* ----------------------------- Footer ---------------------------------- */
@@ -2117,7 +2209,14 @@ window.NETC_CONFIG = window.NETC_CONFIG || { aiEndpoint: "" };
     return [{ vi: vi.replace(/^\d+(\.\d+)*\.?\s*/, ""), en: (h.getAttribute("data-en") || vi).replace(/^\d+(\.\d+)*\.?\s*/, "") }];
   }
 
+  function closeDrawer() {
+    document.body.classList.remove("m-open");
+    var b = document.getElementById("mBurger");
+    if (b) b.setAttribute("aria-expanded", "false");
+  }
+
   function route() {
+    closeDrawer();
     var parts = location.hash.replace(/^#/, "").split("/");
     var id = parts[0] || "trang-chu";
     if (id === "tin-tuc") {
@@ -2189,6 +2288,7 @@ window.NETC_CONFIG = window.NETC_CONFIG || { aiEndpoint: "" };
 
   function mount() {
     var h = document.createElement("div");
+    h.className = "site-top";
     h.innerHTML = headerHTML();
     document.body.insertBefore(h, document.body.firstChild);
 
@@ -2201,8 +2301,21 @@ window.NETC_CONFIG = window.NETC_CONFIG || { aiEndpoint: "" };
     var lk = document.getElementById("navlinks");
     lk.removeAttribute("style");
     tg.addEventListener("click", function () {
+      if (document.body.classList.contains("m-open")) { closeDrawer(); return; }
       var open = lk.classList.toggle("open");
       tg.setAttribute("aria-expanded", String(open));
+    });
+
+    // menu trượt trên điện thoại
+    var burger = document.getElementById("mBurger");
+    burger.addEventListener("click", function () {
+      document.body.classList.add("m-open");
+      burger.setAttribute("aria-expanded", "true");
+    });
+    document.getElementById("mOverlay").addEventListener("click", closeDrawer);
+    lk.addEventListener("click", function (e) { if (e.target.closest("a")) closeDrawer(); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && document.body.classList.contains("m-open")) closeDrawer();
     });
 
     // ngôn ngữ
@@ -2255,10 +2368,12 @@ window.NETC_CONFIG = window.NETC_CONFIG || { aiEndpoint: "" };
     });
 
     // tìm kiếm toàn trang
-    var sf = document.getElementById("headSearch");
-    if (sf) sf.addEventListener("submit", function (e) {
-      e.preventDefault();
-      runSearch(sf.q.value);
+    document.querySelectorAll(".head-search").forEach(function (sf) {
+      sf.addEventListener("submit", function (e) {
+        e.preventDefault();
+        closeDrawer();
+        runSearch(sf.q.value);
+      });
     });
 
     // đồng hồ trên thanh tin mới
