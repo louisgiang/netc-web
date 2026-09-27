@@ -301,6 +301,7 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
 .crumb a { color: var(--blue); }
 
 .layout { display: grid; grid-template-columns: 1fr 290px; gap: 22px; align-items: start; padding: 22px 0 40px; }
+.layout-full { grid-template-columns: 1fr; }
 .content { background: #fff; border: 1px solid var(--line); padding: 20px 22px; }
 .content h2 {
   margin-top: 26px; font-size: 16px; text-transform: uppercase; color: var(--blue);
@@ -1511,7 +1512,7 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
     </div>
   </div>
 
-  <div class="wrap layout">
+  <div class="wrap layout layout-full">
     <div>
       <article class="content" id="login">
         <div class="grid-2">
@@ -1592,25 +1593,6 @@ tbody tr:nth-child(even) { background: #F7FAFD; }
         <p class="notice-bar" data-vi="Đây là dữ liệu mẫu phục vụ demo giao diện; phần kết nối hệ thống quản lý hồ sơ sẽ làm ở bước backend." data-en="This is sample data for the front-end demo; the connection to the file management system comes with the backend.">Đây là dữ liệu mẫu phục vụ demo giao diện; phần kết nối hệ thống quản lý hồ sơ sẽ làm ở bước backend.</p>
       </article>
     </div>
-
-    <aside>
-      <div class="side-box">
-        <h3 data-vi="Sáu trạng thái hồ sơ" data-en="Six file statuses">Sáu trạng thái hồ sơ</h3>
-        <ul>
-          <li data-vi="1. Đã nộp" data-en="1. Submitted">1. Đã nộp</li>
-          <li data-vi="2. Đã tiếp nhận" data-en="2. Received">2. Đã tiếp nhận</li>
-          <li data-vi="3. Chờ thanh toán" data-en="3. Awaiting payment">3. Chờ thanh toán</li>
-          <li data-vi="4. Đang thử nghiệm" data-en="4. Testing">4. Đang thử nghiệm</li>
-          <li data-vi="5. Chờ phê duyệt" data-en="5. Pending approval">5. Chờ phê duyệt</li>
-          <li data-vi="6. Đã trả kết quả" data-en="6. Results issued">6. Đã trả kết quả</li>
-        </ul>
-      </div>
-      <div class="side-box dark">
-        <h3 data-vi="Hồ sơ chậm tiến độ?" data-en="File running late?">Hồ sơ chậm tiến độ?</h3>
-        <p data-vi="Trạng thái không đổi quá 3 ngày làm việc, gọi (024).36893108 kèm mã hồ sơ." data-en="If the status has not changed for over 3 working days, call (024).36893108 with your file code.">Trạng thái không đổi quá 3 ngày làm việc, gọi (024).36893108 kèm mã hồ sơ.</p>
-        <button class="btn btn-primary" type="button" data-ask="" data-vi="Hỏi trợ lý" data-en="Ask the assistant">Hỏi trợ lý</button>
-      </div>
-    </aside>
   </div>
 </section>
 
